@@ -51,17 +51,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize Session State
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {
-            "role": "assistant",
-            "content": "Merhaba! Ben **Bursa Teknik Üniversitesi İMEP Akıllı Öğrenci Danışmanıyım**. İMEP başvuru koşulları, sigorta, devam zorunluluğu, raporlar veya notlandırma hakkında merak ettiğiniz tüm soruları sorabilirsiniz. 🎓"
-        }
-    ]
+# Main Header - Renders IMMEDIATELY so page is never blank!
+st.markdown('<div class="main-header">Bursa Teknik Üniversitesi</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">İşletmede Mesleki Eğitim Programı (İMEP) Akıllı Soru-Cevap Sistemi</div>', unsafe_allow_html=True)
 
-@st.cache_resource
-def get_rag_system():
+# Initialize RAG System with a visible loading spinner
+@st.cache_resource(show_spinner=False)
+def load_rag_system():
     loader = DocumentLoader(DATA_RAW_DIR)
     chunks = loader.load_documents()
     vector_store = HybridVectorStore()
@@ -69,11 +65,11 @@ def get_rag_system():
     rag_engine = RAGEngine(vector_store)
     return rag_engine, count, len(chunks)
 
-rag_engine, doc_count, chunk_count = get_rag_system()
+with st.spinner("⏳ Yapay zeka ve İMEP veritabanı yükleniyor, lütfen birkaç saniye bekleyin..."):
+    rag_engine, doc_count, chunk_count = load_rag_system()
 
 # Sidebar
 with st.sidebar:
-    st.image("https://btu.edu.tr/img/logo.png", width=180, default_image=None)
     st.title("⚙️ İMEP RAG Paneli")
     
     st.markdown("### 📊 Veritabanı Durumu")
@@ -91,7 +87,7 @@ with st.sidebar:
         st.warning("⚠️ API Key tanımlı değil. Sistem yerel referans çıkarma modunda çalışıyor.")
 
     st.markdown("---")
-    st.markdown("### 👥 Proje Ekibi (3 Person)")
+    st.markdown("### 👥 Proje Ekibi (3 Kişi)")
     st.markdown('<span class="badge-team">Üye 1: Veri & Chunking</span>', unsafe_allow_html=True)
     st.markdown('<span class="badge-team">Üye 2: RAG & Vector Engine</span>', unsafe_allow_html=True)
     st.markdown('<span class="badge-team">Üye 3: UI & Evaluation</span>', unsafe_allow_html=True)
@@ -100,9 +96,14 @@ with st.sidebar:
         st.cache_resource.clear()
         st.rerun()
 
-# Main Header
-st.markdown('<div class="main-header">Bursa Teknik Üniversitesi</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">İşletmede Mesleki Eğitim Programı (İMEP) Akıllı Soru-Cevap Sistemi</div>', unsafe_allow_html=True)
+# Initialize Session State for Chat
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [
+        {
+            "role": "assistant",
+            "content": "Merhaba! Ben **Bursa Teknik Üniversitesi İMEP Akıllı Öğrenci Danışmanıyım**. İMEP başvuru koşulları, sigorta, devam zorunluluğu, raporlar veya notlandırma hakkında merak ettiğiniz tüm soruları sorabilirsiniz. 🎓"
+        }
+    ]
 
 # Quick Questions
 st.markdown("##### 💡 Hızlı Sorular")
