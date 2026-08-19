@@ -51,11 +51,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Main Header - Renders IMMEDIATELY so page is never blank!
+# Main Header
 st.markdown('<div class="main-header">Bursa Teknik Üniversitesi</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-header">İşletmede Mesleki Eğitim Programı (İMEP) Akıllı Soru-Cevap Sistemi</div>', unsafe_allow_html=True)
 
-# Initialize RAG System with a visible loading spinner
+# Initialize RAG System with spinner
 @st.cache_resource(show_spinner=False)
 def load_rag_system():
     loader = DocumentLoader(DATA_RAW_DIR)
@@ -101,23 +101,25 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = [
         {
             "role": "assistant",
-            "content": "Merhaba! Ben **Bursa Teknik Üniversitesi İMEP Akıllı Öğrenci Danışmanıyım**. İMEP başvuru koşulları, sigorta, devam zorunluluğu, raporlar veya notlandırma hakkında merak ettiğiniz tüm soruları sorabilirsiniz. 🎓"
+            "content": "Merhaba! Ben **Bursa Teknik Üniversitesi İMEP Akıllı Öğrenci Danışmanıyım**. İMEP başvuru koşulları, sigorta, devam zorunluluğu, **resmi F1-F9 formları** veya notlandırma hakkında merak ettiğiniz tüm soruları sorabilirsiniz. 🎓"
         }
     ]
 
 # Quick Questions
 st.markdown("##### 💡 Hızlı Sorular")
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 preset_query = None
 if col1.button("📌 Başvuru Şartları"):
     preset_query = "İMEP'e başvuru şartları ve GANO sınırı nedir?"
 if col2.button("💰 Sigorta ve Ücret"):
     preset_query = "İMEP'te sigortayı kim öder ve maaş verilir mi?"
-if col3.button("⏰ Devam Zorunluluğu"):
+if col3.button("📋 İMEP Formları"):
+    preset_query = "İMEP F1, F2, F3, F4, F8 ve F9 formları nelerdir ve linkleri nedir?"
+if col4.button("⏰ Devam Durumu"):
     preset_query = "İMEP süresi kaç haftadır ve devamsızlık sınırı nedir?"
-if col4.button("📝 Rapor Teslimi"):
-    preset_query = "İMEP raporu ne zaman ve nasıl teslim edilir?"
+if col5.button("📝 Rapor Teslimi"):
+    preset_query = "İMEP ara ve final raporları nasıl teslim edilir?"
 
 # Display Chat History
 for msg in st.session_state.messages:
@@ -140,7 +142,7 @@ if user_input:
 
     # Generate Assistant response
     with st.chat_message("assistant"):
-        with st.spinner("BTÜ İMEP yönergeleri taranıyor..."):
+        with st.spinner("BTÜ İMEP yönergeleri ve formları taranıyor..."):
             result = rag_engine.generate_response(user_input)
             answer = result["answer"]
             sources = result["sources"]

@@ -1,0 +1,28 @@
+# BURSA TEKNİK ÜNİVERSİTESİ İMEP RESMİ FORMLARI VE BAĞLANTILARI
+
+BTÜ İşletmede Mesleki Eğitim Programı (İMEP) kapsamında kullanılan resmi formlar, kodları ve indirme bağlantıları aşağıdaki gibidir:
+
+## BTÜ-İMEP F1: İşbirliği Sözleşmesi ve Kontenjan Çizelgesi
+- Tanım: İşletme ile Bursa Teknik Üniversitesi arasında yapılan resmi İMEP iş birliği sözleşmesi ve firma kontenjan belirleme çizelgesidir.
+- F1 İşbirliği Sözleşmesi İndir: https://depo.btu.edu.tr/img/sayfa//1722252980_e32f10eaccd7553b8f63.pdf
+- F1 Kontenjan Çizelgesi İndir: https://depo.btu.edu.tr/img/sayfa//1786688772_48daed1e94f7209da1d0.docx
+
+## BTÜ-İMEP F2: Öğrenci Sözleşmesi
+- Tanım: İMEP'e kabul edilen öğrenci, üniversite ve firma arasında imzalanan, öğrencinin hak ve sorumluluklarını düzenleyen ana sözleşmedir.
+- F2 Öğrenci Sözleşmesi İndir: https://depo.btu.edu.tr/img/sayfa//1697005455_7e972c5b2d9552ff318a.pdf
+
+## BTÜ-İMEP F3: Öğrenci Ara Faaliyet Raporu Taslağı
+- Tanım: Öğrencilerin İMEP döneminin ortasında tamamlayarak akademik danışmanlarına ve işletme eğiticilerine sunması gereken ara rapor şablonudur.
+- F3 Ara Rapor Taslağı İndir: https://depo.btu.edu.tr/img/sayfa//1697005508_abe21b4248c0c8f882ff.docx
+
+## BTÜ-İMEP F4: Öğrenci Final Faaliyet Raporu Taslağı
+- Tanım: İMEP dönem sonunda 16 haftalık tüm çalışmaları kapsayan nihai dönem raporu formatıdır.
+- F4 Final Rapor Taslağı İndir: https://depo.btu.edu.tr/img/sayfa//169700522_45ab4affdbca09ee97f1.doc
+
+## BTÜ-İMEP F8: Akademik Danışman Değerlendirme Formu
+- Tanım: BTÜ öğretim üyesinin (akademik danışman) öğrencinin İMEP sunumu, raporu ve performansına verdiği değerlendirme formudur (%30 not ağırlığı).
+- F8 Akademik Danışman Formu İndir: https://depo.btu.edu.tr/img/sayfa//1700635988_d0f290604a3842269645.docx
+
+## BTÜ-İMEP F9: Sektör Danışmanı Değerlendirme Formu
+- Tanım: İşletmedeki eğitici/sektör danışmanının öğrencinin devamlılığı, performansı ve iş disiplinine ilişkin doldurduğu notlandırma formudur (%40 not ağırlığı).
+- F9 Sektör Danışmanı Formu İndir: https://depo.btu.edu.tr/img/sayfa//1781248106_38af4c50cceee6907119.docx
