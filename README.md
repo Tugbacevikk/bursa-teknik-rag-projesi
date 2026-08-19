@@ -47,11 +47,6 @@ imep/
 
 ---
 
-## 👥 3 Kişilik Takım Görev Dağılımı ve Katkı Rehberi
-
-- **Üye 1 (Veri Engine):** BTÜ İMEP güncel duyuru ve PDF'lerini `data/raw/` klasörüne ekler. `src/data_loader.py` dosyasında chunking stratejilerini geliştirir.
-- **Üye 2 (Core Engine):** `src/vector_store.py` (ChromaDB + BM25) ve `src/rag_engine.py` içinde arama başarısını artırır, prompt mühendisliğini günceller.
-- **Üye 3 (UI & Evaluation):** `app.py` üzerinde arayüz özelliklerini ve kullanıcı deneyimini geliştirir; `tests/test_rag.py` ile doğrulama testlerini yürütür.
 
 ---
 
