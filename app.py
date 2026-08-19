@@ -90,7 +90,7 @@ with st.sidebar:
         st.rerun()
 
 # Application Tabs
-tab1, tab2, tab3 = st.tabs(["💬 Öğrenci Danışmanı", "📄 Rapor Kontrol Modülü (F3/F4)", "📊 İstatistik & Admin Paneli"])
+tab1, tab2, tab3 = st.tabs(["💬 Öğrenci Danışmanı", "📄 Rapor Kontrol Modülü (F3/F4)", "📊 İstatistik & Feedback Paneli"])
 
 # TAB 1: Chatbot Interface
 with tab1:
@@ -98,9 +98,11 @@ with tab1:
         st.session_state["messages"] = [
             {
                 "role": "assistant",
-                "content": "Merhaba! Ben **BTÜ İMEP Akıllı Öğrenci Danışmanıyım**. İMEP başvuru koşulları, sigorta, devam zorunluluğu, **resmi F1-F9 formları** veya rapor teslimleri hakkında sorularınızı sorabilirsiniz. 🎓"
+                "content": "Merhaba! Ben **BTÜ İMEP Akıllı Öğrenci Danışmanıyım**. İMEP başvuru koşulları, sigorta, akademik takvim, **resmi F1-F9 formları** veya rapor teslimleri hakkında sorularınızı sorabilirsiniz. 🎓"
             }
         ]
+    if "feedback" not in st.session_state:
+        st.session_state["feedback"] = {"positive": 0, "negative": 0}
 
     st.markdown("##### 💡 Hızlı Soru Butonları")
     c1, c2, c3, c4, c5 = st.columns(5)
@@ -109,14 +111,14 @@ with tab1:
         preset_query = "İMEP'e başvuru şartları ve GANO sınırı nedir?"
     if c2.button("💰 Sigorta & Ödeme"):
         preset_query = "İMEP'te sigortayı kim öder ve maaş verilir mi?"
-    if c3.button("📋 İMEP Formları"):
+    if c3.button("📅 Akademik Takvim"):
+        preset_query = "İMEP başvuru, ara rapor ve final raporu teslim tarihleri nedir?"
+    if c4.button("📋 İMEP Formları"):
         preset_query = "İMEP F1, F2, F3, F4, F8 ve F9 formları nelerdir ve indirme linkleri nedir?"
-    if c4.button("⏰ Devam Durumu"):
-        preset_query = "İMEP devamsızlık sınırı nedir ve sağlık raporu nasıl verilir?"
     if c5.button("📝 Notlandırma"):
         preset_query = "İMEP başarı notu nasıl hesaplanır, firma ve akademik danışman yüzdeleri nedir?"
 
-    for msg in st.session_state.messages:
+    for i, msg in enumerate(st.session_state.messages):
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
             if "sources" in msg and msg["sources"]:
@@ -124,6 +126,15 @@ with tab1:
                     for idx, src in enumerate(msg["sources"], 1):
                         st.markdown(f"**{idx}. {src['source']}** - *{src['header']}*")
                         st.markdown(f"```text\n{src['text']}\n```")
+                
+                # Feedback buttons for assistant responses
+                col_fb1, col_fb2, col_fb3 = st.columns([1, 1, 8])
+                if col_fb1.button("👍", key=f"pos_{i}"):
+                    st.session_state["feedback"]["positive"] += 1
+                    st.toast("Geri bildiriminiz alındı! Teşekkür ederiz. 😊")
+                if col_fb2.button("👎", key=f"neg_{i}"):
+                    st.session_state["feedback"]["negative"] += 1
+                    st.toast("Geri bildiriminiz alındı. Sistemi geliştirmek için inceliyoruz! 🛠️")
 
     user_input = st.chat_input("İMEP ile ilgili sorunuzu yazın...") or preset_query
 
@@ -153,8 +164,8 @@ with tab1:
 
 # TAB 2: Report Checker
 with tab2:
-    st.subheader("📄 İMEP Rapor Format ve İÇERİK Kontrolü (F3 Ara / F4 Final Raporu)")
-    st.markdown("Hazırladığınız **F3 Ara Faaliyet Raporu** veya **F4 Final Raporu** dosyanızı (TXT / PDF / DOCX) yükleyin. Yapay zeka raporunuzu İMEP standartlarına göre analiz etsin.")
+    st.subheader("📄 İMEP Rapor Format ve İçerik Kontrolü (F3 Ara / F4 Final Raporu)")
+    st.markdown("Hazırladığınız **F3 Ara Faaliyet Raporu** veya **F4 Final Raporu** dosyanızı (TXT / PDF) yükleyin. Yapay zeka raporunuzu İMEP standartlarına göre analiz etsin.")
     
     uploaded_file = st.file_uploader("Rapor Dosyanızı Yükleyin", type=["txt", "pdf"])
     if uploaded_file is not None:
@@ -168,13 +179,14 @@ with tab2:
                 st.markdown("### 📊 Rapor İnceleme Sonucu")
                 st.info(analysis_res["answer"])
 
-# TAB 3: Admin Analytics
+# TAB 3: Admin & Feedback Analytics
 with tab3:
-    st.subheader("📊 İMEP Koordinatörlük Analitik & İstatistik Paneli")
-    col_a, col_b, col_c = st.columns(3)
+    st.subheader("📊 İMEP Koordinatörlük Analitik & Geri Bildirim Paneli")
+    col_a, col_b, col_c, col_d = st.columns(4)
     col_a.metric("Toplam Sorulan Soru", len(st.session_state.get("messages", [])) // 2)
-    col_b.metric("Veritabanı Sağlığı", "%100 Tamamlandı")
-    col_c.metric("Ortalama Yanıt Süresi", "< 0.8 Saniye")
+    col_b.metric("Olumlu Geri Bildirim (👍)", st.session_state.get("feedback", {}).get("positive", 0))
+    col_c.metric("Olumsuz Geri Bildirim (👎)", st.session_state.get("feedback", {}).get("negative", 0))
+    col_d.metric("Veritabanı Sağlığı", "%100 Tamamlandı")
 
     st.markdown("---")
     st.markdown("### 📌 En Çok Merak Edilen İMEP Konuları")
@@ -182,6 +194,6 @@ with tab3:
         "İMEP Başvuru & GANO": 45,
         "Sigorta & Ücretler": 38,
         "F1-F9 Resmi Formlar": 29,
-        "Rapor Teslimi": 22,
-        "Devamsızlık Hakları": 18
+        "Akademik Takvim": 25,
+        "Rapor Teslimi": 22
     })
