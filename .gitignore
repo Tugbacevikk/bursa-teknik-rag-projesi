@@ -17,6 +17,3 @@ data/processed/
 
 # Environment Variables
 .env
-
-# Streamlit
-.streamlit/
