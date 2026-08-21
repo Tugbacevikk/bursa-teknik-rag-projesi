@@ -67,10 +67,4 @@ imep/
 └── README.md
 ```
 
----
 
-## 👥 3 Kişilik Takım Görev Dağılımı
-
-- **Üye 1 (Veri & Scraper Sorumlusu):** Web Scraper'lar, Akademik Takvim ve BTÜ yönetmeliklerinin taranması.
-- **Üye 2 (Advanced RAG & API Sorumlusu):** Re-Ranking, Parent-Child Chunking, FastAPI ve Dockerization.
-- **Üye 3 (UI/UX & Form Generator & Audio):** Streamlit Web Arayüzü, Sesli Yanıt (TTS), Otomatik PDF Dilekçe Üreticisi ve Chat Widget.
