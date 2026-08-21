@@ -1,0 +1,19 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Chroma Vector Database
+chroma_db/
+
+# Data processed
+data/processed/
+
+# Environment Variables
+.env

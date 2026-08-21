@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  streamlit-app:
+    build: .
+    container_name: btu_asistan_streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./chroma_db:/app/chroma_db
+    restart: always
+
+  fastapi-service:
+    build: .
+    container_name: btu_asistan_api
+    command: python api.py
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./chroma_db:/app/chroma_db
+    restart: always

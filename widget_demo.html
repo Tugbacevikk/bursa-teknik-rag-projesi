@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTÜ Web Sitesi - Yüzen Chatbot Widget Demosu</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h1 { color: #0d3b66; }
+        .code-box {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏛️ Bursa Teknik Üniversitesi Web Portalı (Demo)</h1>
+    <p>Bu sayfa, BTÜ Asistan Yüzen Sohbet Widget'ının resmi web sitelerine nasıl entegre edildiğini gösteren canlı bir önizlemedir.</p>
+
+    <h3>🛠️ Web Sitesine Entegrasyon Kodu (Tek Satır):</h3>
+    <p>Üniversite veya İMEP web sitesinin <code>&lt;body&gt;</code> etiketinin en altına şu tek satırlık kodu eklemeniz yeterlidir:</p>
+    <div class="code-box">
+        &lt;script src="https://your-server-url/static/widget.js"&gt;&lt;/script&gt;
+    </div>
+
+    <p style="margin-top: 30px;">👉 <b>Test Etmek İçin:</b> Ekranın sağ alt köşesindeki 🎓 amblemine tıklayarak sohbet penceresini açabilir ve soru sorabilirsiniz!</p>
+</div>
+
+<!-- BTÜ Asistan Floating Widget -->
+<script src="static/widget.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+# BURSA TEKNİK ÜNİVERSİTESİ İŞLETMEDE MESLEKİ EĞİTİM PROGRAMI (İMEP) YÖNERGESİ VE UYGULAMA REHBERİ
+
+## BÖLÜM 1: GENEL ESASLAR VE AMAC
+Madde 1 - Bu yönerge, Bursa Teknik Üniversitesi (BTÜ) lisans öğrencilerinin 7. veya 8. yarıyılda tam zamanlı olarak bir yarıyıl boyunca (en az 16 hafta) işletmelerde mesleki eğitim görmelerine ilişkin usul ve esasları düzenler.
+Madde 2 - İMEP'in temel amacı; öğrencilerin teorik bilgilerini sanayi ortamında pratik tecrübeye dönüştürmelerini sağlamak, mezuniyet öncesi iş tecrübesi kazandırmak ve üniversite-sanayi iş birliğini güçlendirmektir.
+
+## BÖLÜM 2: BAŞVURU VE KABUL ŞARTLARI
+Madde 3 - İMEP'e başvuru yapabilmek için öğrencinin aşağıdaki şartları taşıması gerekir:
+- Lisans öğreniminde en az 6 yarıyılı başarıyla tamamlamış olmak.
+- Genel Ağırlıklı Not Ortalamasının (GANO) en az 2.00 / 4.00 olması (Bazı fakültelerde/bölümlerde kurul kararıyla 2.50 sınırı uygulanabilir).
+- Önceki yarıyıllardan devamsızlıktan kalmamış ve başarısız ders yükünün İMEP komisyonunca belirlenen sınırı aşmaması.
+Madde 4 - Başvurular her yarıyıl öncesinde İMEP Otomasyon Sistemi üzerinden açıklanan takvime uygun olarak yapılır. Öğrenciler BTÜ İMEP Portalı (imep.btu.edu.tr) üzerinden CV oluşturur ve firma tercihlerinde bulunur.
+
+## BÖLÜM 3: SİGORTA VE ÜCRET HAKLARI
+Madde 5 - 3308 Sayılı İş Kanunu ve 5510 Sayılı Sosyal Sigortalar Kanunu uyarınca, İMEP süresince öğrencilerin "İş Kazası ve Meslek Hastalığı Sigortası" Bursa Teknik Üniversitesi Rektörlüğü tarafından karşılanır. Öğrencilerin genel sağlık sigortası aileleri üzerinden devam eder.
+Madde 6 - İşletmeler, İMEP öğrencilerine 3308 sayılı kanun kapsamında asgari ücretin net tutarının en az %30'u oranında aylık ücret ödemekle yükümlüdür. İşletme ile üniversite arasında yapılan protokol gereğince işletme daha yüksek ücret belirleyebilir.
+
+## BÖLÜM 4: DEVAM ZORUNLULUĞU VE DİSİPLİN
+Madde 7 - İMEP süresi kesintisiz 16 haftadır. Öğrencilerin İMEP’e devam zorunluluğu %90’dır.
+Madde 8 - Mazeretsiz veya izinsiz olarak 3 günden fazla devamsızlık yapan öğrencinin İMEP kaydı başarısız (FF) sayılarak kapatılır.
+Madde 9 - Hastalık, birinci derece yakın kaybı veya resmi sınavlar durumunda alınan rapor/belge 2 gün içerisinde İMEP Bölüm Koordinatörüne ve İşletme Eğiticisine bildirilmelidir.
+
+## BÖLÜM 5: EVALUATION AND GRADING (DEĞERLENDİRME VE NOTLANDIRMA)
+Madde 10 - Öğrencinin başarısı aşağıdaki bileşenlerin ağırlıklı ortalaması alınarak belirlenir:
+- İşletme Eğiticisi Değerlendirme Notu (%40 ağırlık)
+- İMEP Raporu ve Günlük/Haftalık Çalışma Dosyası (%30 ağırlık)
+- Akademik Danışman Sunumu / Sözlü Mülakat Notu (%30 ağırlık)
+Madde 11 - Başarılı olabilmek için harf notunun en az CC veya üzeri olması şarttır. FF alan öğrenciler İMEP dersini bir sonraki dönem tekrar almak veya bölüm müfredatına göre eşdeğer seçmeli dersleri tamamlamak zorundadır.
+
+## BÖLÜM 6: İMEP RAPORU VE TESLİM SÜREÇLERİ
+Madde 12 - Öğrenciler her hafta yapılan çalışmaları kapsayan "İMEP Haftalık Çalışma Raporu"nu hazırlar ve İşletme Eğiticisine onaylatır.
+Madde 13 - Dönem sonunda tüm haftalık raporlar birleştirilerek "İMEP Nihai Dönem Raporu" hazırlanır. Bu rapor dönemin son haftasında akademik danışmana hem basılı hem de İMEP Portalı üzerinden PDF olarak teslim edilir.

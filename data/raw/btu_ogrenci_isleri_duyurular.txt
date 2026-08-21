@@ -1,0 +1,110 @@
+# BTÜ ÖĞRENCI İŞLERI FORM VE BAŞVURU KURALLARI
+Kaynak URL: https://ogrenci.btu.edu.tr/tr/sayfa/detay/4766/formlar
+
+Formlar
+Anasayfa
+/
+Formlar
+Formlar
+S.Nu
+Form Adı
+Link
+1
+Beyan Formu
+tıklayınız
+2
+Birim Öğrenci Kimlik Basım Talep Formu
+tıklayınız
+3
+Çakışan Ders ve Mezuniyet Aşamasında Fazladan Tek Ders Talep Formu
+tıklayınız
+4
+Ders Görevlendirme Tablosu
+tıklayınız
+5
+Ders İntibak Dilekçesi
+tıklayınız
+6
+Ders İntibak Formu
+tıklayınız
+7
+Ders Telafi Formu
+tıklayınız
+8
+Genel Dilekçe Örneği
+tıklayınız
+9
+Harç İade Formu
+tıklayınız
+10
+İsteğe Bağlı Staj Başvuru Dilekçesi
+tıklayınız
+11
+Kayıt Dondurma Başvuru Formu
+tıklayınız
+12
+Kimlik Talep Formu (Online)
+tıklayınız
+13
+Mazeret Sınav Talep Formu
+tıklayınız
+14
+Mazeretli Ders Kayıt Talep Formu
+tıklayınız
+15
+Öğrenci Bilgi Sistemi Kullanıcı Talep ve Yetkilendirme Formu
+tıklayınız
+16
+Öğrenci Bilgi Sistemi Web Servis Talep ve Yetkilendirme Formu
+tıklayınız
+17
+Özel Öğrenci Başvuru Dilekçesi (Başka Üniversiteden Üniversitemize)
+tıklayınız
+18
+Özel Öğrenci Başvuru Dilekçesi (Mezunlar İçin)
+tıklayınız
+19
+Özel Öğrenci Başvuru Dilekçesi (Üniversitemizden Başka Üniversiteye)
+tıklayınız
+20
+Pasaport Hacı Muafiyet Formu
+tıklayınız
+21
+Sınav Maddi Hata Düzeltme Formu
+tıklayınız
+22
+Sınav Sonucuna İtiraz Formu
+tıklayınız
+23
+Staj Ücretlerine İşsizlik Fonu Katkısı Öğrenci ve İşveren Bilgi Formu
+tıklayınız
+24
+Tek Ders Alma Talep Formu
+tıklayınız
+25
+Yandal Kontrol Formu
+tıklayınız
+26
+Yaz Okulu Ders Alma Başvuru Formu
+tıklayınız
+27
+Yeni Ders Öneri Formu
+tıklayınız
+28
+Yaz Okulu Harç İade Formu
+tıklayınız
+29
+Yabancı Uyruklu Öğrenci Detay Bilgi Formu
+tıklayınız
+30
+Yurtdışından Öğrenci Kabul Kontenjanı Kapsamında Kayıtlanıp Aile Mensuplarından Kendinden Başka Öğrenci Olanlar İçin BTU Öğrenim Ücreti İndirim Talep Formu
+tıklayınız
+31
+Yurtdışından Öğrenci Kabul Kontenjanı Kapsamında Kayıtlanıp Aile Mensuplarından Kendinden Başka Öğrenci Olanlar İçin BTU Öğrenim Ücreti İndirim İade Talep Formu
+tıklayınız
+32
+Mezuniyet Dilekçesi
+tıklayınız
+33
+İkinci Nüsha Diploma Talep Formu
+tıklayınız
