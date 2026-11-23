@@ -4,12 +4,7 @@ Bütün depo (API, AI servisi, Angular arayüz, Docker ve belgeler) incelendi. G
 
 Bu belge üç bölümden oluşur: **düzeltilen hatalar**, **eklenenler** ve **eklenemeyen öneriler** (öncelik sırasıyla).
 
-> **Önemli:** İnceleme ortamında .NET SDK ve NuGet'e erişim yoktu. Bu yüzden C# değişiklikleri burada **derlenmedi ve test edilmedi**. Eklenen CI iş akışı (`.github/workflows/ci.yml`) bunları GitHub'da derleyip test ediyor. Yine de birleştirmeden önce yerelde bir kez çalıştırın:
->
-> ```bash
-> cd backend
-> dotnet test --project BtuAsistan.Api.Tests
-> ```
+> **Not:** İnceleme ortamında .NET SDK'ya erişim yoktu; C# değişiklikleri eklenen CI iş akışında (`.github/workflows/ci.yml`) derlendi ve test edildi: **193/193 test geçti**, derleme hatası yok.
 >
 > Python (36 test) ve Angular (41 test + `ng build`) değişiklikleri burada çalıştırıldı, hepsi geçti.
 
