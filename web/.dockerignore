@@ -1,0 +1,7 @@
+# The image installs packages and builds itself.
+node_modules/
+dist/
+.angular/
+# Only for trying the widget locally (README).
+widget-demo/
+Dockerfile

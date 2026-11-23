@@ -1,0 +1,6 @@
+# TLS_MODE=files: the school's own certificate, put into ./certs on the server (mounted at
+# /certs). Renewing it is replacing the files and restarting the web service.
+
+tls /certs/{$TLS_CERT_FILE:cert.pem} /certs/{$TLS_KEY_FILE:key.pem}
+
+header Strict-Transport-Security "max-age=31536000"

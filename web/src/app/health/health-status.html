@@ -1,0 +1,28 @@
+<section class="card">
+  <header>
+    <h2>Sistem durumu</h2>
+    <button matButton="outlined" type="button" (click)="refresh()" [disabled]="loading()">
+      {{ loading() ? 'Kontrol ediliyor…' : 'Yenile' }}
+    </button>
+  </header>
+
+  @if (apiUnreachable()) {
+    <p class="row unhealthy">
+      API'ye ulaşılamıyor. <code>dotnet run</code> ile başlatıldığından emin olun.
+    </p>
+  } @else if (report(); as report) {
+    <p class="row" [class]="report.status | lowercase">
+      <span>Genel durum</span>
+      <strong>{{ statusLabel(report.status) }}</strong>
+    </p>
+    @for (entry of report.checks | keyvalue; track entry.key) {
+      <p class="row" [class]="entry.value.status | lowercase">
+        <span>{{ checkLabel(entry.key) }}</span>
+        <strong>{{ statusLabel(entry.value.status) }}</strong>
+        @if (entry.value.description) {
+          <small>{{ entry.value.description }}</small>
+        }
+      </p>
+    }
+  }
+</section>

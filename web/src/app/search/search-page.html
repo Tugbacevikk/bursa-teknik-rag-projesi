@@ -1,0 +1,114 @@
+<header class="head">
+  <h1 class="title">Arama dene</h1>
+  <p class="subtitle">
+    Bir öğrencinin soracağı gibi yazın; sohbetin cevap verirken okuyacağı belge parçalarını görün.
+  </p>
+</header>
+
+<form class="form" [formGroup]="form" (ngSubmit)="search()" novalidate>
+  <mat-form-field appearance="outline" class="question">
+    <mat-label>Soru</mat-label>
+    <textarea
+      matInput
+      formControlName="question"
+      rows="2"
+      [maxlength]="maxLength"
+      placeholder="Örn. Bahar döneminde ara rapor ne zaman teslim edilir?"
+      (keydown)="onKeydown($event)"
+    ></textarea>
+    @if (form.controls.question.hasError('required')) {
+      <mat-error>Bir soru yazın.</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline" class="method">
+      <mat-label>Yöntem</mat-label>
+      <mat-select formControlName="method">
+        @for (method of methods; track method[0]) {
+          <mat-option [value]="method[0]">{{ method[1] }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <button matButton="filled" type="submit" class="submit" [disabled]="searching()">
+      @if (searching()) {
+        <mat-spinner diameter="20" aria-label="Aranıyor" />
+      } @else {
+        Ara
+      }
+    </button>
+  </div>
+</form>
+
+@if (failure(); as message) {
+  <p class="failure" role="alert">{{ message }}</p>
+}
+
+@if (result(); as result) {
+  <section class="results" aria-live="polite">
+    <p class="summary">
+      {{ result.hits.length }} parça · {{ result.durationMs }} ms
+      @if (result.reranked) {
+        · reranker ile sıralandı
+      }
+    </p>
+
+    @if (result.vectorSearchFailed) {
+      <p class="warning" role="status">
+        Yapay zekâ servisine ulaşılamadı; sonuçlar yalnızca anahtar kelime aramasından geliyor.
+      </p>
+    }
+
+    @if (result.hits.length === 0 && searchedMethod() !== 'Hybrid') {
+      <p class="empty">
+        Bu yöntemle hiçbir parça bulunamadı. Öğrencilerin kullandığı hibrit arama farklı sonuç
+        verebilir.
+      </p>
+    } @else if (result.hits.length === 0) {
+      <p class="empty">
+        Bu soru hiçbir belge parçasıyla eşleşmedi. Sohbet bu soruya belgelerden cevap veremez.
+      </p>
+    }
+
+    <ol class="hits">
+      @for (hit of result.hits; track hit.chunkId; let i = $index) {
+        <li class="hit">
+          <div class="hit-head">
+            <span class="rank">{{ i + 1 }}</span>
+            <div class="where">
+              <span class="doc">{{ hit.documentTitle }}</span>
+              @if (location(hit)) {
+                <span class="section">{{ location(hit) }}</span>
+              }
+              <span class="meta">
+                {{ hit.unit }}
+                @if (hit.validityPeriod) {
+                  · {{ hit.validityPeriod }}
+                }
+                @if (hit.sourceUrl) {
+                  · <a [href]="hit.sourceUrl" target="_blank" rel="noopener noreferrer">kaynak</a>
+                }
+              </span>
+            </div>
+            <span class="found-by" aria-label="Bulan aramalar">
+              <span class="badge" [class.off]="!hit.keywordRank"
+                >kelime {{ hit.keywordRank ? hit.keywordRank + '.' : '–' }}</span
+              >
+              <span class="badge" [class.off]="!hit.vectorRank"
+                >anlam {{ hit.vectorRank ? hit.vectorRank + '.' : '–' }}</span
+              >
+            </span>
+          </div>
+
+          <p class="text" [class.clamped]="isLong(hit) && !isExpanded(hit)">{{ hit.text }}</p>
+          @if (isLong(hit)) {
+            <button matButton type="button" class="more" (click)="toggle(hit)">
+              {{ isExpanded(hit) ? 'Daha az göster' : 'Tamamını göster' }}
+            </button>
+          }
+        </li>
+      }
+    </ol>
+  </section>
+}

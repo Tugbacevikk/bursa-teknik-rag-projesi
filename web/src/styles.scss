@@ -1,0 +1,44 @@
+// Global styles and the Angular Material theme.
+//
+// Material's prebuilt azure palette, with the colors that carry the brand pinned to BTÜ's
+// navy (taken from the old prototype). The Roboto font files come from the installed
+// @fontsource package (angular.json), so nothing is loaded from another server.
+
+@use '@angular/material' as mat;
+
+html {
+  // For our own parts that are not Material components.
+  --brand-navy: #0d3b66;
+  --brand-on-navy: #ffffff;
+  --brand-page: #f5f7fa;
+
+  // Dark mode is not designed yet; keep the light palette everywhere.
+  color-scheme: light;
+  height: 100%;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  @include mat.theme-overrides(
+    (
+      primary: #0d3b66,
+      on-primary: #ffffff,
+    )
+  );
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--brand-page);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-large);
+}

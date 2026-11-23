@@ -1,0 +1,5 @@
+# TLS_MODE=internal: a certificate from Caddy's own authority, which browsers do not
+# trust. Only for trying the whole system on one machine (SITE_ADDRESS=localhost). No HSTS,
+# so the browser does not insist on HTTPS for localhost afterwards.
+
+tls internal

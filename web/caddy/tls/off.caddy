@@ -1,0 +1,3 @@
+# TLS_MODE=off: the school's own proxy does HTTPS and passes plain HTTP on (SITE_ADDRESS
+# starting with http://). Set TRUSTED_PROXIES to that proxy's address so the students'
+# addresses it forwards are believed.

@@ -1,0 +1,122 @@
+.bar {
+  --mat-toolbar-container-background-color: var(--brand-navy);
+  --mat-toolbar-container-text-color: var(--brand-on-navy);
+
+  gap: 1rem;
+  padding-inline: 1.5rem;
+}
+
+.brand {
+  color: inherit;
+  text-decoration: none;
+  font: var(--mat-sys-title-large);
+  white-space: nowrap;
+}
+
+.area {
+  margin-inline-start: 0.5rem;
+  font: var(--mat-sys-body-medium);
+  opacity: 0.75;
+}
+
+.nav a {
+  --mat-button-text-label-text-color: var(--brand-on-navy);
+
+  opacity: 0.8;
+}
+
+.nav a.active {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.who {
+  display: grid;
+  text-align: end;
+  line-height: 1.2;
+}
+
+.email {
+  font: var(--mat-sys-body-medium);
+}
+
+.role {
+  font: var(--mat-sys-label-small);
+  opacity: 0.75;
+}
+
+.sign-out {
+  --mat-button-outlined-label-text-color: var(--brand-on-navy);
+  --mat-button-outlined-outline-color: rgb(255 255 255 / 0.5);
+}
+
+.content {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+// The bar gives up its least needed parts as the window narrows, so the sign-out button
+// always stays visible: first the area name, then the signed-in person.
+@media (max-width: 64rem) {
+  .area {
+    display: none;
+  }
+}
+
+// Narrower windows: the links move to a second row under the name and the sign-out
+// button, and that row scrolls sideways if they still do not fit, instead of widening the
+// page.
+@media (max-width: 60rem) {
+  .bar {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 0;
+    padding: 0.5rem 0.75rem 0;
+  }
+
+  .brand {
+    font: var(--mat-sys-title-medium);
+  }
+
+  .who {
+    margin-inline-end: 0.75rem;
+  }
+
+  .nav {
+    order: 3;
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .nav a {
+    flex-shrink: 0;
+    padding-inline: 0.5rem;
+  }
+}
+
+.password-link {
+  color: inherit;
+}
+
+// Only for phones, where the signed-in person (and their password link) is hidden.
+.nav-password {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .who {
+    display: none;
+  }
+
+  .nav .nav-password {
+    display: inline-flex;
+  }
+}

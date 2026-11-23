@@ -1,0 +1,64 @@
+<main class="page">
+  <section class="card" aria-labelledby="login-title">
+    <p class="brand">BTÜ Asistan</p>
+    <h1 id="login-title" class="title">Personel girişi</h1>
+    <p class="subtitle">Belgeleri yönetmek için okul hesabınızla giriş yapın.</p>
+
+    @if (failure(); as message) {
+      <p class="failure" role="alert">{{ message }}</p>
+    }
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label>E-posta</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          autocomplete="username"
+          inputmode="email"
+        />
+        @if (form.controls.email.hasError('required')) {
+          <mat-error>E-posta adresinizi girin.</mat-error>
+        } @else if (form.controls.email.invalid) {
+          <mat-error>Geçerli bir e-posta adresi girin.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label>Parola</mat-label>
+        <input
+          matInput
+          [type]="passwordVisible() ? 'text' : 'password'"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <button
+          matSuffix
+          matButton
+          type="button"
+          class="reveal"
+          [attr.aria-pressed]="passwordVisible()"
+          (click)="passwordVisible.set(!passwordVisible())"
+        >
+          {{ passwordVisible() ? 'Gizle' : 'Göster' }}
+        </button>
+        @if (form.controls.password.hasError('required')) {
+          <mat-error>Parolanızı girin.</mat-error>
+        } @else if (form.controls.password.invalid) {
+          <mat-error>Parola çok uzun.</mat-error>
+        }
+      </mat-form-field>
+
+      <button matButton="filled" type="submit" class="submit" [disabled]="submitting()">
+        @if (submitting()) {
+          <mat-spinner diameter="20" aria-label="Giriş yapılıyor" />
+        } @else {
+          Giriş yap
+        }
+      </button>
+    </form>
+
+    <p class="note">Hesabınız yoksa sistem yöneticinize başvurun.</p>
+  </section>
+</main>

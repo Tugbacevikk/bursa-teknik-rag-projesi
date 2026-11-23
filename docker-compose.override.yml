@@ -1,0 +1,42 @@
+# Development only: Compose reads this file on its own next to docker-compose.yml, so a
+# plain `docker compose up -d postgres ai-service` gives the setup the API and web app
+# expect when they run on this machine (`dotnet run`, `ng serve`). The server names
+# docker-compose.yml explicitly and leaves this out (PLANNING Faz 6, E7).
+
+services:
+  postgres:
+    # Fixed names for `docker exec` in day-to-day work; the production layout lets Compose
+    # name them, so a second copy (a trial run) can live next to this one.
+    container_name: btu-asistan-postgres
+    # Only reachable from this machine; DocAssistant already uses 5432.
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+
+  ai-service:
+    container_name: btu-asistan-ai
+    ports:
+      - "127.0.0.1:${AI_SERVICE_PORT:-8001}:8000"
+
+  # In development the API runs with `dotnet run`; its container starts only when asked
+  # for with `--profile full` (e.g. to try the image).
+  api:
+    profiles: ["full"]
+
+  # In development migrations run with `dotnet ef database update` (README).
+  migrate:
+    profiles: ["full"]
+
+  # In development the app is served by `ng serve`.
+  web:
+    profiles: ["full"]
+
+  backup:
+    profiles: ["full"]
+
+  # The AI service's tests, in its own image (PLANNING Testler, T4):
+  #   docker compose run --rm --build ai-service-tests
+  ai-service-tests:
+    build:
+      context: ./ai-service
+      target: test
+    profiles: ["test"]

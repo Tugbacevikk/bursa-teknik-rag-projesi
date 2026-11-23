@@ -1,0 +1,74 @@
+# The front door (PLANNING Faz 6, E2–E4): serves the Angular app, passes /api to the API,
+# adds the security headers and does HTTPS. Set through the environment (.env):
+#
+#   SITE_ADDRESS            asistan.btu.edu.tr, or http://asistan.btu.edu.tr behind the
+#                           school's own proxy; localhost for a trial on one machine
+#   TLS_MODE                auto | files | internal | off (see tls/*.caddy)
+#   WIDGET_ALLOWED_PARENTS  sites that may show /widget in an iframe, space separated
+#   TRUSTED_PROXIES         the school's proxy, when it sits in front (TLS_MODE=off)
+#
+# Inside the container Caddy listens on 8080/8443 so it needs no root; compose maps the
+# host's 80/443 there. Let's Encrypt still reaches it through the host's ports.
+
+{
+	http_port 8080
+	https_port 8443
+
+	# Nothing manages Caddy at runtime; the file is the whole configuration.
+	admin off
+
+	servers {
+		# Whose X-Forwarded-For may be believed. Default: nobody but the container itself,
+		# so a client cannot pick its own address for the rate limits (E4).
+		trusted_proxies static {$TRUSTED_PROXIES:127.0.0.1/32}
+	}
+}
+
+{$SITE_ADDRESS:localhost} {
+	import /etc/caddy/tls/{$TLS_MODE:auto}.caddy
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	# Only the widget may be framed, and only by the school's sites; everything else (the
+	# staff panel above all) by nobody, against clickjacking.
+	@widget path /widget /widget/*
+	header @widget Content-Security-Policy "frame-ancestors {$WIDGET_ALLOWED_PARENTS:'none'}"
+	@notWidget not path /widget /widget/*
+	header @notWidget Content-Security-Policy "frame-ancestors 'none'"
+
+	@api path /api/* /health /health/*
+	handle @api {
+		reverse_proxy api:8080 {
+			# The one client address Caddy settled on (trusted_proxies above); the API
+			# takes exactly one hop (ReverseProxy:ForwardLimit).
+			header_up X-Forwarded-For {client_ip}
+
+			# Chat answers stream as server-sent events: pass each part on at once.
+			flush_interval -1
+		}
+	}
+
+	handle {
+		root * /srv
+
+		# Angular routes (/panel, /widget…) are the app's own: unknown paths get index.html.
+		try_files {path} /index.html
+
+		# Static files only: compressing would hold back the chat stream above.
+		encode zstd gzip
+
+		# Always revalidated (cheap with ETags), so an update reaches browsers at once.
+		header Cache-Control no-cache
+
+		file_server
+	}
+}
+
+# For the container's health check only; not published to the host.
+:8081 {
+	respond "ok" 200
+}

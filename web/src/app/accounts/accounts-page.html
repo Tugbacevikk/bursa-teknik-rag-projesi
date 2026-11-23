@@ -1,0 +1,84 @@
+<header class="head">
+  <div>
+    <h1 class="title">Hesaplar</h1>
+    <p class="subtitle">Personel hesapları. Hesaplar silinmez, kapatılır; yapılan her işlem kayda geçer.</p>
+  </div>
+  <button matButton="filled" type="button" (click)="openCreate()">Hesap aç</button>
+</header>
+
+@if (!loaded()) {
+  <div class="center"><mat-spinner diameter="32" aria-label="Hesaplar yükleniyor" /></div>
+} @else if (loadFailed()) {
+  <div class="empty" role="alert">
+    <p>Hesaplar alınamadı.</p>
+    <button matButton="outlined" type="button" (click)="load()">Yeniden dene</button>
+  </div>
+} @else {
+  <div class="table-wrap">
+    <table mat-table [dataSource]="accounts()">
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>E-posta</th>
+        <td mat-cell *matCellDef="let a">
+          <span class="email">{{ a.email }}</span>
+          @if (isSelf(a)) {
+            <span class="tag">siz</span>
+          }
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Rol</th>
+        <td mat-cell *matCellDef="let a">{{ roleLabel(a) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Durum</th>
+        <td mat-cell *matCellDef="let a">
+          @if (!a.isActive) {
+            <span class="status closed">Kapalı</span>
+          } @else if (a.mustChangePassword) {
+            <span class="status pending" title="Geçici parolasını henüz değiştirmedi">Parola bekleniyor</span>
+          } @else {
+            <span class="status active">Açık</span>
+          }
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef>Açılış</th>
+        <td mat-cell *matCellDef="let a">{{ formatDate(a.createdAt) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef><span class="visually-hidden">İşlemler</span></th>
+        <td mat-cell *matCellDef="let a" class="actions">
+          @if (busyId() === a.id) {
+            <mat-spinner diameter="20" aria-label="Kaydediliyor" />
+          } @else if (isSelf(a)) {
+            <span class="self-note" title="Kendi hesabınızı başka bir Yönetici değiştirebilir">—</span>
+          } @else {
+            <button matButton type="button" [matMenuTriggerFor]="menu" [attr.aria-label]="a.email + ' için işlemler'">
+              İşlemler
+            </button>
+            <mat-menu #menu="matMenu">
+              @if (a.role === 'Editor') {
+                <button mat-menu-item type="button" (click)="setRole(a, 'Admin')">Yönetici yap</button>
+              } @else {
+                <button mat-menu-item type="button" (click)="setRole(a, 'Editor')">Editör yap</button>
+              }
+              <button mat-menu-item type="button" (click)="resetPassword(a)">Parolayı sıfırla</button>
+              @if (a.isActive) {
+                <button mat-menu-item type="button" class="danger" (click)="setActive(a, false)">Hesabı kapat</button>
+              } @else {
+                <button mat-menu-item type="button" (click)="setActive(a, true)">Hesabı yeniden aç</button>
+              }
+            </mat-menu>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns" [class.inactive]="!row.isActive"></tr>
+    </table>
+  </div>
+}

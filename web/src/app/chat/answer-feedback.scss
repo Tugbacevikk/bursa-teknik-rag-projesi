@@ -1,0 +1,106 @@
+:host {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.label {
+  margin-inline-end: 0.25rem;
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.thumb {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 1.125rem;
+  cursor: pointer;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.thumb:hover:not(:disabled),
+.thumb.selected {
+  filter: none;
+  opacity: 1;
+}
+
+.thumb.selected {
+  border-color: var(--brand-navy);
+  background: #e3ecf6;
+}
+
+.thumb:disabled {
+  cursor: default;
+}
+
+.link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-body-small);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.comment {
+  display: grid;
+  gap: 0.375rem;
+  // The sticky question box and notice below the chat.
+  scroll-margin-bottom: 11rem;
+}
+
+.comment-label {
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.comment-input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 0.5rem;
+  background: var(--mat-sys-surface);
+  color: inherit;
+  font: var(--mat-sys-body-medium);
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.comment-input:focus {
+  outline: 2px solid var(--brand-navy);
+  outline-offset: -1px;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.count {
+  margin-inline-end: auto;
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.error {
+  margin: 0;
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-error);
+}

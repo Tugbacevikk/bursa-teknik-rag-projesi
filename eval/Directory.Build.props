@@ -1,0 +1,4 @@
+<Project>
+  <!-- The evaluation tool is built like the API: same framework and the same warnings-as-errors rules. -->
+  <Import Project="../backend/Directory.Build.props" />
+</Project>
