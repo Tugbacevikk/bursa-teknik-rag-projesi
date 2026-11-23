@@ -12,7 +12,7 @@ COPY . .
 RUN npx ng build
 
 
-FROM caddy:2.10-alpine
+FROM caddy:2.11-alpine
 
 # An unprivileged user; Caddy listens on 8080/8443 inside, so it needs no root. /data keeps
 # the certificates (a volume in compose), /config what Caddy saves for itself.
