@@ -21,7 +21,7 @@ RUN ConnectionStrings__Migrations="Host=unused-at-build-time" \
     dotnet ef migrations bundle --project BtuAsistan.Api/BtuAsistan.Api.csproj --configuration Release --output /app/efbundle
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
+FROM mcr.microsoft.com/dotnet/aspnet:11.0
 
 # For the health check only; the runtime image has no HTTP client of its own.
 RUN apt-get update \
