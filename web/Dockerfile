@@ -1,7 +1,7 @@
 # The web front door (PLANNING Faz 6, E2): the Angular app built with Node, served by Caddy,
 # which also passes /api to the API and does HTTPS (caddy/Caddyfile).
 
-FROM node:24-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /src
 
 # Packages first, so this layer is reused until package-lock.json changes.
