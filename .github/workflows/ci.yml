@@ -67,3 +67,21 @@ jobs:
       - run: npm ci
       - run: npx ng test --watch=false
       - run: npx ng build
+
+  # The images the server runs (docker-compose.yml). The jobs above test the code with the
+  # runner's own tools; this one builds each Dockerfile, so an update of a base image
+  # (Python, .NET, Node, Caddy) that no longer builds is caught here, not on the server.
+  docker:
+    name: Docker imajı (${{ matrix.service }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ai-service, backend, web]
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -t btu-${{ matrix.service }} ${{ matrix.service }}
+      # The AI service's last stage is its test image: pytest with torch and the other
+      # packages exactly as installed in production.
+      - if: matrix.service == 'ai-service'
+        run: docker run --rm btu-ai-service
