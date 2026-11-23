@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Uses the API's own reading, chunking, embedding and search code, so what is measured is what students get. -->
+    <ProjectReference Include="../../backend/BtuAsistan.Api/BtuAsistan.Api.csproj" />
+  </ItemGroup>
+
+</Project>

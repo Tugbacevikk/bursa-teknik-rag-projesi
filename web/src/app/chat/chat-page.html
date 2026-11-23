@@ -1,0 +1,212 @@
+<header class="bar">
+  <div class="bar-inner">
+    <span class="brand">BTÜ Asistan</span>
+    <span class="spacer"></span>
+    @if (turns().length > 0) {
+      <button matButton class="bar-button" type="button" (click)="newChat()">Yeni sohbet</button>
+    }
+    <!-- Not in the widget: staff sign in at the full site, not inside the school's page. -->
+    @if (!widget) {
+      @if (session.isSignedIn()) {
+        <a matButton class="bar-button" routerLink="/panel">Personel paneli</a>
+      } @else {
+        <a matButton class="bar-button" routerLink="/giris">Personel girişi</a>
+      }
+    }
+  </div>
+</header>
+
+<main class="page">
+  @if (turns().length === 0) {
+    <section class="welcome">
+      <h1 class="title">Merhaba, ne öğrenmek istersin?</h1>
+      <p class="intro">
+        İMEP, akademik takvim, formlar ve öğrenci işleri hakkındaki sorularını üniversitenin
+        belgelerine dayanarak cevaplarım. Her cevabın altında dayandığı belgeyi görebilirsin.
+      </p>
+
+      @if (loadingHistory()) {
+        <mat-spinner diameter="28" aria-label="Sohbet yükleniyor" />
+      } @else {
+        <div class="examples" aria-label="Örnek sorular">
+          @for (example of examples; track example) {
+            <button type="button" class="example" (click)="ask(example)" [disabled]="busy()">
+              {{ example }}
+            </button>
+          }
+        </div>
+      }
+    </section>
+  }
+
+  <ol class="turns" aria-live="polite">
+    @for (turn of turns(); track turn.key) {
+      <li class="turn">
+        <p class="question">{{ turn.question }}</p>
+
+        <div class="answer" [class.muted]="turn.status === 'notFound'" [class.failed]="turn.status === 'failed'">
+          @switch (turn.status) {
+            @case ('notFound') {
+              <p>{{ turn.message }}</p>
+              @if (turn.stored; as stored) {
+                <app-answer-feedback
+                  [conversationId]="stored.conversationId"
+                  [messageId]="stored.messageId"
+                  [initialRating]="stored.feedback"
+                  [initialComment]="stored.feedbackComment"
+                />
+              }
+            }
+            @case ('failed') {
+              <p role="alert">{{ turn.message }}</p>
+            }
+            @default {
+              @if (turn.answer === '') {
+                <p class="thinking">
+                  <mat-spinner diameter="18" aria-hidden="true" />
+                  {{ turn.sources.length > 0 ? 'Belgeler okunuyor…' : 'Belgelerde aranıyor…' }}
+                </p>
+              }
+
+              @for (block of blocks(turn); track $index) {
+                @if (block.kind === 'paragraph') {
+                  <p>
+                    @for (part of block.inlines; track $index) {
+                      @switch (part.kind) {
+                        @case ('bold') {
+                          <strong>{{ part.text }}</strong>
+                        }
+                        @case ('cite') {
+                          <button
+                            type="button"
+                            class="cite"
+                            [attr.aria-label]="'Kaynak ' + part.number"
+                            (click)="showSource(turn, part.number)"
+                          >
+                            {{ part.number }}
+                          </button>
+                        }
+                        @default {
+                          {{ part.text }}
+                        }
+                      }
+                    }
+                  </p>
+                } @else {
+                  <ul>
+                    @for (item of block.items; track $index) {
+                      <li>
+                        @for (part of item; track $index) {
+                          @switch (part.kind) {
+                            @case ('bold') {
+                              <strong>{{ part.text }}</strong>
+                            }
+                            @case ('cite') {
+                              <button
+                                type="button"
+                                class="cite"
+                                [attr.aria-label]="'Kaynak ' + part.number"
+                                (click)="showSource(turn, part.number)"
+                              >
+                                {{ part.number }}
+                              </button>
+                            }
+                            @default {
+                              {{ part.text }}
+                            }
+                          }
+                        }
+                      </li>
+                    }
+                  </ul>
+                }
+              }
+
+              @if (cited(turn); as sources) {
+                @if (sources.length > 0) {
+                  <section class="sources" aria-label="Kaynaklar">
+                    <h2 class="sources-title">Kaynaklar</h2>
+                    <ol class="source-list">
+                      @for (source of sources; track source.number) {
+                        <li
+                          class="source"
+                          tabindex="-1"
+                          [id]="sourceId(turn, source.number)"
+                          [class.highlighted]="highlighted() === sourceId(turn, source.number)"
+                        >
+                          <span class="source-number">{{ source.number }}</span>
+                          <span class="source-body">
+                            @if (source.sourceUrl) {
+                              <a class="source-title" [href]="source.sourceUrl" target="_blank" rel="noopener noreferrer">
+                                {{ source.title }}
+                              </a>
+                            } @else {
+                              <span class="source-title">{{ source.title }}</span>
+                            }
+                            @if (location(source)) {
+                              <span class="source-meta">{{ location(source) }}</span>
+                            }
+                            <span class="source-meta">
+                              {{ source.unit }}
+                              @if (source.validityPeriod) {
+                                · {{ source.validityPeriod }}
+                              }
+                            </span>
+                          </span>
+                        </li>
+                      }
+                    </ol>
+                  </section>
+                }
+              }
+
+              @if (turn.status === 'answered' && turn.stored; as stored) {
+                <app-answer-feedback
+                  [conversationId]="stored.conversationId"
+                  [messageId]="stored.messageId"
+                  [initialRating]="stored.feedback"
+                  [initialComment]="stored.feedbackComment"
+                />
+              }
+            }
+          }
+        </div>
+      </li>
+    }
+  </ol>
+</main>
+
+<footer class="composer">
+  <form class="composer-inner" (submit)="$event.preventDefault(); ask()">
+    <label class="visually-hidden" for="question">Sorunuz</label>
+    <textarea
+      #input
+      id="question"
+      name="question"
+      class="input"
+      rows="1"
+      placeholder="Sorunu yaz…"
+      [value]="question()"
+      (input)="question.set(input.value)"
+      [attr.maxlength]="maxLength"
+      (keydown)="onKeydown($event)"
+    ></textarea>
+    <button
+      matButton="filled"
+      class="send"
+      type="submit"
+      [disabled]="busy() || question().trim() === ''"
+    >
+      @if (busy()) {
+        <mat-spinner diameter="20" aria-label="Cevap yazılıyor" />
+      } @else {
+        Gönder
+      }
+    </button>
+  </form>
+  <p class="notice">
+    Kişisel bilgilerini (TC kimlik no, telefon, not ortalaması) yazma. Sorular cevap üretmek için
+    Google Gemini'ye gönderilir ve 90 gün saklanır. Cevaplar belgelerden otomatik üretilir; önemli
+    kararlarda ilgili birime danış.
+  </p>
+</footer>

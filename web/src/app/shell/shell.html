@@ -1,0 +1,50 @@
+<mat-toolbar class="bar">
+  <a class="brand" routerLink="/panel">BTÜ Asistan <span class="area">Personel Paneli</span></a>
+
+  <!-- Hidden until a temporary password is changed: the API would refuse every screen. -->
+  @if (!session.mustChangePassword()) {
+    <nav class="nav" aria-label="Panel">
+      <a
+        mat-button
+        routerLink="/panel"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Belgeler
+      </a>
+      <a mat-button routerLink="/panel/analitik" routerLinkActive="active">Analitik</a>
+      <a mat-button routerLink="/panel/arama" routerLinkActive="active">Arama dene</a>
+      <a mat-button routerLink="/panel/durum" routerLinkActive="active">Sistem durumu</a>
+      @if (session.isAdmin()) {
+        <a mat-button routerLink="/panel/hesaplar" routerLinkActive="active">Hesaplar</a>
+      }
+      <a mat-button routerLink="/">Sohbet</a>
+      <a mat-button class="nav-password" routerLink="/panel/parola" routerLinkActive="active">Parola</a>
+    </nav>
+  }
+
+  <span class="spacer"></span>
+
+  @if (session.user(); as user) {
+    <span class="who">
+      <span class="email">{{ user.email }}</span>
+      <span class="role">
+        {{ roleLabel(user.role) }} ·
+        <a class="password-link" routerLink="/panel/parola">Parolayı değiştir</a>
+      </span>
+    </span>
+  }
+  <button
+    matButton="outlined"
+    class="sign-out"
+    type="button"
+    (click)="signOut()"
+    [disabled]="signingOut()"
+  >
+    Çıkış yap
+  </button>
+</mat-toolbar>
+
+<main class="content">
+  <router-outlet />
+</main>

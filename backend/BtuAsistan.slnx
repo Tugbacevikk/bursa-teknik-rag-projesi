@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../eval/BtuAsistan.Eval/BtuAsistan.Eval.csproj" />
+  <Project Path="BtuAsistan.Api/BtuAsistan.Api.csproj" />
+  <Project Path="BtuAsistan.Api.Tests/BtuAsistan.Api.Tests.csproj" />
+</Solution>

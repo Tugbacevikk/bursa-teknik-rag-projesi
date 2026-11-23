@@ -1,0 +1,167 @@
+<header class="head">
+  <div>
+    <h1 class="title">Analitik</h1>
+    <p class="subtitle">
+      Öğrencilerin ne sorduğu ve neyin cevapsız kaldığı.
+      @if (report(); as r) {
+        {{ periodLabel(r.summary.period) }}.
+      }
+    </p>
+  </div>
+  <mat-button-toggle-group
+    hideSingleSelectionIndicator
+    aria-label="Dönem"
+    [value]="days()"
+    (change)="selectPeriod($event.value)"
+  >
+    @for (p of periods; track p) {
+      <mat-button-toggle [value]="p">Son {{ p }} gün</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+</header>
+
+@if (loadFailed()) {
+  <div class="empty" role="alert">
+    <p>Analitik alınamadı.</p>
+    <button matButton="outlined" type="button" (click)="load()">Yeniden dene</button>
+  </div>
+} @else if (report(); as r) {
+  <div class="content" [class.stale]="loading()" [attr.aria-busy]="loading()">
+    <section class="stats" aria-label="Özet">
+      <div class="stat">
+        <span class="stat-value">{{ r.summary.questions }}</span>
+        <span class="stat-label">soru</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{{ share(r.summary.answered, r.summary.questions) }}</span>
+        <span class="stat-label">cevaplandı ({{ r.summary.answered }})</span>
+      </div>
+      <div class="stat" [class.warn]="r.summary.notFound > 0">
+        <span class="stat-value">{{ share(r.summary.notFound, r.summary.questions) }}</span>
+        <span class="stat-label">bulunamadı ({{ r.summary.notFound }})</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{{ share(r.summary.up, rated()) }}</span>
+        <span class="stat-label">memnun (👍 {{ r.summary.up }} · 👎 {{ r.summary.down }})</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Günlük soru sayısı</h2>
+      @if (r.summary.questions === 0) {
+        <p class="none">Bu dönemde soru sorulmadı.</p>
+      } @else {
+        <div
+          class="chart"
+          role="img"
+          [attr.aria-label]="'Günlük soru sayısı; en yoğun gün ' + busiestDay() + ' soru'"
+        >
+          @for (day of r.summary.days; track day.date) {
+            <div
+              class="bar"
+              [title]="dayLabel(day.date) + ': ' + day.questions + ' soru, ' + day.notFound + ' bulunamadı'"
+            >
+              <span class="bar-not-found" [style.height]="barHeight(day.notFound)"></span>
+              <span class="bar-answered" [style.height]="barHeight(day.answered)"></span>
+            </div>
+          }
+        </div>
+        <div class="chart-axis" aria-hidden="true">
+          <span>{{ dayLabel(r.summary.period.from) }}</span>
+          <span class="legend">
+            <span class="swatch answered"></span> cevaplandı
+            <span class="swatch not-found"></span> bulunamadı
+          </span>
+          <span>{{ dayLabel(r.summary.period.to) }}</span>
+        </div>
+      }
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2 class="card-title">Cevapsız kalan sorular <span class="count">{{ r.unanswered.total }}</span></h2>
+        <p class="card-hint">Belgelerde cevabı bulunamadı. Sık tekrarlananlar için belge eklemeyi düşünün.</p>
+        @if (r.unanswered.items.length === 0) {
+          <p class="none">Bu dönemde cevapsız soru yok.</p>
+        } @else {
+          <ul class="rows">
+            @for (item of r.unanswered.items; track item.messageId) {
+              <li>
+                <button type="button" class="row" (click)="openConversation(item.conversationId, item.messageId)">
+                  <span class="row-text">{{ item.question }}</span>
+                  @if (item.feedbackComment) {
+                    <span class="row-comment">👎 “{{ item.feedbackComment }}”</span>
+                  }
+                  <span class="row-meta">{{ formatDateTime(item.answeredAt) }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">👎 alan cevaplar <span class="count">{{ r.negative.total }}</span></h2>
+        <p class="card-hint">Öğrencinin işine yaramayan cevaplar ve yorumları.</p>
+        @if (r.negative.items.length === 0) {
+          <p class="none">Bu dönemde 👎 verilmedi.</p>
+        } @else {
+          <ul class="rows">
+            @for (item of r.negative.items; track item.messageId) {
+              <li>
+                <button type="button" class="row" (click)="openConversation(item.conversationId, item.messageId)">
+                  <span class="row-text">{{ item.question }}</span>
+                  @if (item.feedbackComment) {
+                    <span class="row-comment">“{{ item.feedbackComment }}”</span>
+                  }
+                  <span class="row-meta">
+                    {{ item.outcome === 'NotFound' ? 'Bulunamadı' : 'Cevaplandı' }} · {{ formatDateTime(item.answeredAt) }}
+                  </span>
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">En sık sorulan sorular</h2>
+        <p class="card-hint">Büyük-küçük harf ve noktalama farkı yok sayılır; aynı soru başka kelimelerle ayrı sayılır.</p>
+        @if (r.questions.items.length === 0) {
+          <p class="none">Bu dönemde soru sorulmadı.</p>
+        } @else {
+          <ol class="ranked">
+            @for (item of r.questions.items; track $index) {
+              <li>
+                <span class="ranked-text">{{ item.question }}</span>
+                <span class="ranked-count">{{ item.count }}</span>
+              </li>
+            }
+          </ol>
+        }
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">En çok kaynak gösterilen belgeler</h2>
+        <p class="card-hint">Cevaplarda atıf yapılan belgeler; yanında kaç cevapta geçtiği.</p>
+        @if (r.documents.items.length === 0) {
+          <p class="none">Bu dönemde atıf yapılan belge yok.</p>
+        } @else {
+          <ol class="ranked">
+            @for (item of r.documents.items; track item.documentId) {
+              <li>
+                <span class="ranked-text">
+                  {{ item.title }}
+                  <span class="ranked-meta">{{ item.unit }}{{ item.deleted ? ' · silinmiş' : '' }}</span>
+                </span>
+                <span class="ranked-count">{{ item.answers }}</span>
+              </li>
+            }
+          </ol>
+        }
+      </section>
+    </div>
+  </div>
+} @else {
+  <div class="center"><mat-spinner diameter="32" aria-label="Analitik yükleniyor" /></div>
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Widget denemesi · BTÜ Asistan</title>
+    <!--
+      A stand-in for a page of the school's site, to try the chat widget (PLANNING D4).
+      Served from another origin than the app, as the school's site would be:
+
+        python -m http.server 4300 --directory web/widget-demo
+
+      then open http://localhost:4300 while `ng serve` runs on 4200. The dev server lets
+      only http://localhost:4300 frame the app (angular.json, frame-ancestors); served on
+      any other port this page shows an empty, refused frame.
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        background: #f4f6f9;
+        color: #222;
+        font-family: system-ui, sans-serif;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+        gap: 2rem;
+        max-width: 64rem;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 48rem) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      h1 {
+        color: #0d3b66;
+      }
+
+      /* The line the school's site adds, with its box. */
+      .btu-asistan {
+        width: 100%;
+        height: 36rem;
+        border: 1px solid #d8dee6;
+        border-radius: 0.75rem;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article>
+        <h1>İşletmede Mesleki Eğitim (İMEP)</h1>
+        <p>
+          Bu sayfa okul sitesinin yerine geçen bir denemedir. Sağdaki kutu, sitenin kendi sayfasına
+          eklediği tek satırlık <code>&lt;iframe&gt;</code> ile gösterilen BTÜ Asistan sohbetidir.
+        </p>
+        <p>Sorularınızı yandaki kutuya yazabilirsiniz.</p>
+      </article>
+
+      <aside>
+        <iframe class="btu-asistan" src="http://localhost:4200/widget" title="BTÜ Asistan sohbeti" loading="lazy"></iframe>
+      </aside>
+    </main>
+  </body>
+</html>

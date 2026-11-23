@@ -1,0 +1,65 @@
+<div class="rating" role="group" aria-label="Bu cevap işine yaradı mı?">
+  <span class="label">
+    @switch (rating()) {
+      @case ('Up') {
+        Teşekkürler!
+      }
+      @case ('Down') {
+        {{ savedComment() ? 'Teşekkürler, yorumun iletildi.' : 'Teşekkürler, bunu iyileştireceğiz.' }}
+      }
+      @default {
+        İşine yaradı mı?
+      }
+    }
+  </span>
+  <button
+    type="button"
+    class="thumb"
+    aria-label="İşime yaradı"
+    [attr.aria-pressed]="rating() === 'Up'"
+    [class.selected]="rating() === 'Up'"
+    [disabled]="sending()"
+    (click)="rate('Up')"
+  >
+    👍
+  </button>
+  <button
+    type="button"
+    class="thumb"
+    aria-label="İşime yaramadı"
+    [attr.aria-pressed]="rating() === 'Down'"
+    [class.selected]="rating() === 'Down'"
+    [disabled]="sending()"
+    (click)="rate('Down')"
+  >
+    👎
+  </button>
+  @if (rating() === 'Down' && !commenting() && !savedComment()) {
+    <button type="button" class="link" (click)="openComment()">Yorum ekle</button>
+  }
+</div>
+
+@if (commenting()) {
+  <form class="comment" (submit)="$event.preventDefault(); sendComment()">
+    <label class="comment-label" [for]="'yorum-' + messageId()">Neyi eksik ya da yanlış buldun? (isteğe bağlı)</label>
+    <textarea
+      #commentInput
+      class="comment-input"
+      rows="2"
+      [id]="'yorum-' + messageId()"
+      [value]="comment()"
+      (input)="comment.set(commentInput.value)"
+      [attr.maxlength]="maxLength"
+      placeholder="Kişisel bilgilerini yazma."
+    ></textarea>
+    <div class="comment-actions">
+      <span class="count">{{ comment().length }}/{{ maxLength }}</span>
+      <button matButton type="button" (click)="cancelComment()">Vazgeç</button>
+      <button matButton="filled" type="submit" [disabled]="sending() || comment().trim() === ''">Gönder</button>
+    </div>
+  </form>
+}
+
+@if (error(); as message) {
+  <p class="error" role="alert">{{ message }}</p>
+}

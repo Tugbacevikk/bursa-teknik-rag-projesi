@@ -1,0 +1,342 @@
+{
+  "version": 1,
+  "draft": true,
+  "author": "Claude (taslak, 2026-11-17); ekip gözden geçirecek",
+  "questions": [
+    {
+      "id": "takvim-001", "type": "direct",
+      "question": "Güz döneminde İMEP başvuruları hangi tarihler arasında yapılır?",
+      "expected_answer": "15 Temmuz - 25 Ağustos.",
+      "sources": [{ "document": "takvim", "section": "GÜZ DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP Başvuru ve Firma Tercihleri: 15 Temmuz - 25 Ağustos" }]
+    },
+    {
+      "id": "takvim-002", "type": "direct",
+      "question": "Bahar döneminde İMEP ara faaliyet raporu ne zaman teslim edilir?",
+      "expected_answer": "8. hafta sonunda (Nisan ayının 2. haftası).",
+      "sources": [{ "document": "takvim", "section": "BAHAR DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP Ara Faaliyet Raporu (F3) Teslimi: 8. Hafta Sonu (Nisan ayının 2. haftası)" }]
+    },
+    {
+      "id": "takvim-003", "type": "paraphrase",
+      "question": "Güzde firmadaki eğitime hangi gün başlıyoruz?",
+      "expected_answer": "25 Eylül (1. hafta).",
+      "sources": [{ "document": "takvim", "section": "GÜZ DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP İşletmede Eğitimin Başlaması: 25 Eylül (1. Hafta)" }]
+    },
+    {
+      "id": "takvim-004", "type": "paraphrase",
+      "question": "Bahar döneminde harç parasını hangi günler arasında yatırmam gerekiyor?",
+      "expected_answer": "05 - 09 Şubat.",
+      "sources": [{ "document": "takvim", "section": "BAHAR DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "Katkı Payı / Öğrenim Ücreti Yatırma: 05 - 09 Şubat" }]
+    },
+    {
+      "id": "takvim-005", "type": "short",
+      "question": "yaz stajı başvurusu",
+      "expected_answer": "Mayıs ayı sonuna kadar İMEP/Bölüm staj komisyonuna teslim edilir.",
+      "sources": [{ "document": "takvim", "section": "YAZ OKULU VE YAZ STAJI DÖNEMİ", "page": null, "evidence": "Yaz Stajı Başvuruları: Mayıs ayı sonuna kadar İMEP/Bölüm staj komisyonuna teslim edilir." }]
+    },
+    {
+      "id": "takvim-006", "type": "exact_term",
+      "question": "Güz döneminde F4 ne zaman teslim edilir?",
+      "expected_answer": "16. hafta sonunda (Ocak ayının 2. haftası).",
+      "sources": [{ "document": "takvim", "section": "GÜZ DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP Final Faaliyet Raporu (F4) Teslimi: 16. Hafta Sonu (Ocak ayının 2. haftası)" }]
+    },
+    {
+      "id": "takvim-007", "type": "paraphrase",
+      "question": "Bahar döneminde firmadaki çalışmamı jüriye anlatacağım hafta hangisi?",
+      "expected_answer": "Haziran ayının 2. haftası.",
+      "sources": [{ "document": "takvim", "section": "BAHAR DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP Sunum ve Mülakat Haftası: Haziran ayının 2. haftası" }]
+    },
+    {
+      "id": "takvim-008", "type": "direct",
+      "question": "Yaz okulu kayıtları ne zaman yapılır?",
+      "expected_answer": "Temmuz ayının ilk haftası.",
+      "sources": [{ "document": "takvim", "section": "YAZ OKULU VE YAZ STAJI DÖNEMİ", "page": null, "evidence": "Yaz Okulu Kayıtları: Temmuz ayının ilk haftası" }]
+    },
+
+    {
+      "id": "model-001", "type": "direct",
+      "question": "Öğrenciler BTÜ-İMEP programına hangi yarıyılda katılır?",
+      "expected_answer": "7. yarıyılda.",
+      "sources": [{ "document": "model", "section": null, "page": null, "evidence": "Eğitim planı dahilinde, öğrencilerimiz 7. Yarıyılda BTÜ-İMEP’ programına katılmaktadır." }]
+    },
+    {
+      "id": "model-002", "type": "paraphrase",
+      "question": "Firmaya gitmeden önce bizi iş hayatına hazırlayan bir eğitim veriliyor mu?",
+      "expected_answer": "Evet, 5. ve 6. yarıyılda kariyer eğitimi verilir.",
+      "sources": [{ "document": "model", "section": null, "page": null, "evidence": "Bu sürecinin verimli bir şekilde geçirilebilmesi için, 5. ve 6. yarıyılda (BTÜ-İMEP başlamadan) kariyer eğitimi verilmektedir." }]
+    },
+    {
+      "id": "model-003", "type": "paraphrase",
+      "question": "Bu programda firmada gerçekten iş mi yapıyoruz yoksa sadece izliyor muyuz?",
+      "expected_answer": "Öğrenciler kurumda aktif bir çalışan gibi görev alır ve bir projeye dahil olur.",
+      "sources": [{ "document": "model", "section": null, "page": null, "evidence": "BTÜ-İMEP kapsamında geçirilen dönemde, öğrenciler yerleştikleri kurumlarda aktif bir çalışan gibi görevler almakta ve bir proje çalışmasına dahil olmaktadır." }]
+    },
+    {
+      "id": "model-004", "type": "paraphrase",
+      "question": "Firma yerine bir hocanın araştırma projesinde çalışabilir miyim?",
+      "expected_answer": "Evet, isteyen öğrenciler bir öğretim üyesinin projesinde yardımcı araştırmacı olabilir.",
+      "sources": [{ "document": "model", "section": null, "page": null, "evidence": "Bu kapsamda, öğrencilerimizin tercih etmeleri durumunda, üniversitelerde bir öğretim üyesinin devam etmekte olan projesinde yardımcı araştırmacı olarak görev almalarına fırsat verilmektedir." }]
+    },
+    {
+      "id": "model-005", "type": "direct",
+      "question": "Lisansın son döneminde yapılan bitirme çalışması neye yöneliktir?",
+      "expected_answer": "Sanayi problemlerinin çözümüne.",
+      "sources": [{ "document": "model", "section": null, "page": null, "evidence": "Lisans öğreniminin son döneminde ise, kampüs eğitiminde edinilen akademik bilgiler ile BTÜ-İMEP kapsamında edinilen endüstriyel tecrübe birleştirilerek, sanayi problemlerinin çözümüne yönelik bir bitirme çalışması yaptırılmaktadır." }]
+    },
+
+    {
+      "id": "if-001", "type": "exact_term",
+      "question": "F2 öğrenci sözleşmesi nedir?",
+      "expected_answer": "Öğrenci, üniversite ve firma arasında imzalanan, öğrencinin hak ve sorumluluklarını düzenleyen ana sözleşme.",
+      "sources": [{ "document": "imep-formlar", "section": "BTÜ-İMEP F2: Öğrenci Sözleşmesi", "page": null, "evidence": "Tanım: İMEP'e kabul edilen öğrenci, üniversite ve firma arasında imzalanan, öğrencinin hak ve sorumluluklarını düzenleyen ana sözleşmedir." }]
+    },
+    {
+      "id": "if-002", "type": "paraphrase",
+      "question": "Dönemin ortasında hazırlayacağım raporun şablonunu nereden indirebilirim?",
+      "expected_answer": "F3 Ara Rapor Taslağı bağlantısından.",
+      "sources": [{ "document": "imep-formlar", "section": "BTÜ-İMEP F3: Öğrenci Ara Faaliyet Raporu Taslağı", "page": null, "evidence": "F3 Ara Rapor Taslağı İndir: https://depo.btu.edu.tr/img/sayfa//1697005508_abe21b4248c0c8f882ff.docx" }]
+    },
+    {
+      "id": "if-003", "type": "exact_term",
+      "question": "F9 formunun not ağırlığı yüzde kaçtır?",
+      "expected_answer": "%40.",
+      "sources": [{ "document": "imep-formlar", "section": "BTÜ-İMEP F9: Sektör Danışmanı Değerlendirme Formu", "page": null, "evidence": "Tanım: İşletmedeki eğitici/sektör danışmanının öğrencinin devamlılığı, performansı ve iş disiplinine ilişkin doldurduğu notlandırma formudur (%40 not ağırlığı)." }]
+    },
+    {
+      "id": "if-004", "type": "short",
+      "question": "kontenjan çizelgesi indir",
+      "expected_answer": "F1 Kontenjan Çizelgesi bağlantısı.",
+      "sources": [{ "document": "imep-formlar", "section": "BTÜ-İMEP F1: İşbirliği Sözleşmesi ve Kontenjan Çizelgesi", "page": null, "evidence": "F1 Kontenjan Çizelgesi İndir: https://depo.btu.edu.tr/img/sayfa//1786688772_48daed1e94f7209da1d0.docx" }]
+    },
+    {
+      "id": "if-005", "type": "paraphrase",
+      "question": "Hocamın bana vereceği not hangi formla veriliyor ve notumun ne kadarını oluşturuyor?",
+      "expected_answer": "F8 Akademik Danışman Değerlendirme Formu; %30.",
+      "sources": [{ "document": "imep-formlar", "section": "BTÜ-İMEP F8: Akademik Danışman Değerlendirme Formu", "page": null, "evidence": "Tanım: BTÜ öğretim üyesinin (akademik danışman) öğrencinin İMEP sunumu, raporu ve performansına verdiği değerlendirme formudur (%30 not ağırlığı)." }]
+    },
+    {
+      "id": "if-006", "type": "direct",
+      "question": "F4 final faaliyet raporu neyi kapsar?",
+      "expected_answer": "16 haftalık tüm çalışmaları.",
+      "sources": [{ "document": "imep-formlar", "section": "BTÜ-İMEP F4: Öğrenci Final Faaliyet Raporu Taslağı", "page": null, "evidence": "Tanım: İMEP dönem sonunda 16 haftalık tüm çalışmaları kapsayan nihai dönem raporu formatıdır." }]
+    },
+
+    {
+      "id": "esaslar-001", "type": "direct",
+      "question": "İMEP'te öğrenciler ve kurumlar tercihlerini nasıl yapar?",
+      "expected_answer": "BTÜ-İMEP Otomasyon Sistemi üzerinden tercih edip Koordinatörlüğe bildirirler.",
+      "sources": [{ "document": "esaslar", "section": null, "page": null, "evidence": "Her BTÜ-İMEP  döneminden önce,  öğrencilerimiz kendilerine uygun kurumları, kurumlar da öğrenciler arasından tercih ettiği isimleri BTÜ-İMEP OTOMASYON SİSTEMİ üzerinden tercih ederek Koordinatörlüğe bildirir." }]
+    },
+    {
+      "id": "esaslar-002", "type": "paraphrase",
+      "question": "Firmayla karşılıklı birbirimizi seçtikten sonra ne oluyor?",
+      "expected_answer": "Kurum öğrenciyle mülakat yapar ve süreç resmîleştirilir.",
+      "sources": [{ "document": "esaslar", "section": null, "page": null, "evidence": "Öğrencilerimiz ile kurumlarımızın tercihlerinin eşleşmesi durumunda, kurumun öğrenci ile görüştürülerek bir mülakata girmesi sağlanıp, süreç resmiyete kavuşturulur." }]
+    },
+    {
+      "id": "esaslar-003", "type": "paraphrase",
+      "question": "Firmadayken beni kimler takip edip değerlendiriyor?",
+      "expected_answer": "BTÜ'den bir öğretim üyesi ve kurumdan görevlendirilen bir meslek mensubu.",
+      "sources": [{ "document": "esaslar", "section": null, "page": null, "evidence": "BTÜ-İMEP  sürecinde, öğrencilerimizin çalışmaları hem BTÜ’den bir öğretim üyesi, hem de kurumdan görevlendirilecek bir meslek mensubu tarafından devamlı olarak izlenerek değerlendirilir." }]
+    },
+    {
+      "id": "esaslar-004", "type": "direct",
+      "question": "Programın tamamlanması için hangi rapor hazırlanır ve kim değerlendirir?",
+      "expected_answer": "16 haftalık çalışmayı anlatan teknik rapor; Koordinatörlüğün oluşturduğu komiteler değerlendirir.",
+      "sources": [{ "document": "esaslar", "section": null, "page": null, "evidence": "Programın tamamlanması için öğrenciler 16 haftalık çalışma döneminde yapılan çalışmaları anlatan bir teknik rapor hazırlar." }]
+    },
+    {
+      "id": "esaslar-005", "type": "paraphrase",
+      "question": "Bir şirketin kaç öğrenci alacağı nerede belirleniyor?",
+      "expected_answer": "Kurumla imzalanan işbirliği sözleşmesinde, bölümler bazında.",
+      "sources": [{ "document": "esaslar", "section": null, "page": null, "evidence": "Bu sözleşmede, kurumun sağladığı öğrenci kontenjanları bölümler bazında karara bağlanır." }]
+    },
+
+    {
+      "id": "sss-001", "type": "direct",
+      "question": "İMEP stajı ile normal yaz stajı arasındaki fark nedir?",
+      "expected_answer": "İMEP bir yarıyıl (16 hafta), haftada 5 gün tam zamanlı ve kredili; yaz stajı 20-30 iş günü.",
+      "sources": [{ "document": "sss", "section": null, "page": null, "evidence": "Cevap: İMEP, tam bir akademik yarıyıl (16 hafta) boyunca haftada 5 gün işletmede tam zamanlı çalışma gerektiren kredili bir ders/programdır." }]
+    },
+    {
+      "id": "sss-002", "type": "paraphrase",
+      "question": "Staj yapacağım şirketi kendim ayarlasam kabul edilir mi?",
+      "expected_answer": "Evet; firma İMEP Komisyonunca onaylanmalı ve BTÜ ile protokol imzalanmalı.",
+      "sources": [{ "document": "sss", "section": null, "page": null, "evidence": "Öğrenciler kendi buldukları firmalarda İMEP yapabilirler." }]
+    },
+    {
+      "id": "sss-003", "type": "paraphrase",
+      "question": "İMEP dönemindeyken okulda başka bir derse de yazılabilir miyim?",
+      "expected_answer": "Hayır; yalnızca Bitirme Projesi/Tasarım dersi alınabilir.",
+      "sources": [{ "document": "sss", "section": null, "page": null, "evidence": "İMEP tam zamanlı bir program olduğu için öğrenciler İMEP aldıkları dönemde sadece Bitirme Projesi/Tasarım dersi alabilirler." }]
+    },
+    {
+      "id": "sss-004", "type": "short",
+      "question": "İMEP ücret ödeme zamanı",
+      "expected_answer": "Her ayın sonunda ya da izleyen ayın ilk haftasında.",
+      "sources": [{ "document": "sss", "section": null, "page": null, "evidence": "Cevap: Ücretler çalıştığınız firma tarafından her ayın sonunda veya takip eden ayın ilk haftasında öğrencinin banka hesabına yatırılır." }]
+    },
+    {
+      "id": "sss-005", "type": "direct",
+      "question": "İMEP mülakatlarında öğrencinin nesi değerlendirilir?",
+      "expected_answer": "GANO, teknik bilgi, alan projeleri ve iletişim becerileri.",
+      "sources": [{ "document": "sss", "section": null, "page": null, "evidence": "Mülakatlarda öğrencinin GANO'su, teknik bilgisi, alan projeleri ve iletişim becerileri değerlendirilir." }]
+    },
+    {
+      "id": "sss-006", "type": "direct",
+      "question": "Kendi bulduğum firmanın uygunluk formunu en geç ne zaman vermeliyim?",
+      "expected_answer": "Ders kayıt haftasından en geç 2 hafta önce.",
+      "sources": [{ "document": "sss", "section": null, "page": null, "evidence": "Firma uygunluk formu en geç ders kayıt haftasından 2 hafta önce komisyona sunulmalıdır." }]
+    },
+
+    {
+      "id": "yonerge-001", "type": "exact_term",
+      "question": "İMEP'e başvurmak için GANO en az kaç olmalı?",
+      "expected_answer": "2.00 / 4.00 (bazı bölümlerde 2.50).",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 2: BAŞVURU VE KABUL ŞARTLARI", "page": null, "evidence": "Genel Ağırlıklı Not Ortalamasının (GANO) en az 2.00 / 4.00 olması" }]
+    },
+    {
+      "id": "yonerge-002", "type": "paraphrase",
+      "question": "Okulda not ortalamam kaç olmalı ki bu programa girebileyim?",
+      "expected_answer": "En az 2.00 (bazı bölümlerde 2.50).",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 2: BAŞVURU VE KABUL ŞARTLARI", "page": null, "evidence": "Genel Ağırlıklı Not Ortalamasının (GANO) en az 2.00 / 4.00 olması" }]
+    },
+    {
+      "id": "yonerge-003", "type": "paraphrase",
+      "question": "İş yerindeyken kaza geçirirsem masrafları kim karşılar?",
+      "expected_answer": "İş kazası ve meslek hastalığı sigortası BTÜ Rektörlüğünce karşılanır.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 3: SİGORTA VE ÜCRET HAKLARI", "page": null, "evidence": "İMEP süresince öğrencilerin \"İş Kazası ve Meslek Hastalığı Sigortası\" Bursa Teknik Üniversitesi Rektörlüğü tarafından karşılanır." }]
+    },
+    {
+      "id": "yonerge-004", "type": "paraphrase",
+      "question": "Şirket bana en az ne kadar maaş vermek zorunda?",
+      "expected_answer": "Net asgari ücretin en az %30'u.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 3: SİGORTA VE ÜCRET HAKLARI", "page": null, "evidence": "Madde 6 - İşletmeler, İMEP öğrencilerine 3308 sayılı kanun kapsamında asgari ücretin net tutarının en az %30'u oranında aylık ücret ödemekle yükümlüdür." }]
+    },
+    {
+      "id": "yonerge-005", "type": "paraphrase",
+      "question": "Haber vermeden kaç gün gitmezsem dersten kalırım?",
+      "expected_answer": "3 günden fazla mazeretsiz devamsızlıkta FF ile kaydı kapatılır.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 4: DEVAM ZORUNLULUĞU VE DİSİPLİN", "page": null, "evidence": "Madde 8 - Mazeretsiz veya izinsiz olarak 3 günden fazla devamsızlık yapan öğrencinin İMEP kaydı başarısız (FF) sayılarak kapatılır." }]
+    },
+    {
+      "id": "yonerge-006", "type": "direct",
+      "question": "İMEP'ten başarılı sayılmak için harf notu en az ne olmalı?",
+      "expected_answer": "CC.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 5: EVALUATION AND GRADING (DEĞERLENDİRME VE NOTLANDIRMA)", "page": null, "evidence": "Madde 11 - Başarılı olabilmek için harf notunun en az CC veya üzeri olması şarttır." }]
+    },
+    {
+      "id": "yonerge-007", "type": "short",
+      "question": "İMEP not ağırlıkları",
+      "expected_answer": "İşletme eğiticisi %40, rapor ve çalışma dosyası %30, akademik danışman sunumu/mülakat %30.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 5: EVALUATION AND GRADING (DEĞERLENDİRME VE NOTLANDIRMA)", "page": null, "evidence": "İşletme Eğiticisi Değerlendirme Notu (%40 ağırlık)" }]
+    },
+    {
+      "id": "yonerge-008", "type": "direct",
+      "question": "İMEP nihai dönem raporu nasıl teslim edilir?",
+      "expected_answer": "Dönemin son haftasında akademik danışmana hem basılı hem de portal üzerinden PDF olarak.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 6: İMEP RAPORU VE TESLİM SÜREÇLERİ", "page": null, "evidence": "Bu rapor dönemin son haftasında akademik danışmana hem basılı hem de İMEP Portalı üzerinden PDF olarak teslim edilir." }]
+    },
+    {
+      "id": "yonerge-009", "type": "exact_term",
+      "question": "5510 sayılı kanun İMEP öğrencileri için neyi düzenler?",
+      "expected_answer": "İş kazası ve meslek hastalığı sigortasının Rektörlükçe karşılanmasını.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 3: SİGORTA VE ÜCRET HAKLARI", "page": null, "evidence": "Madde 5 - 3308 Sayılı İş Kanunu ve 5510 Sayılı Sosyal Sigortalar Kanunu uyarınca" }]
+    },
+    {
+      "id": "yonerge-010", "type": "paraphrase",
+      "question": "Her hafta yaptığım işleri kime onaylatmam gerekiyor?",
+      "expected_answer": "İşletme Eğiticisine.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 6: İMEP RAPORU VE TESLİM SÜREÇLERİ", "page": null, "evidence": "Madde 12 - Öğrenciler her hafta yapılan çalışmaları kapsayan \"İMEP Haftalık Çalışma Raporu\"nu hazırlar ve İşletme Eğiticisine onaylatır." }]
+    },
+    {
+      "id": "yonerge-011", "type": "direct",
+      "question": "İMEP'e başvurmak için en az kaç yarıyılı tamamlamış olmak gerekir?",
+      "expected_answer": "6 yarıyıl.",
+      "sources": [{ "document": "yonerge", "section": "BÖLÜM 2: BAŞVURU VE KABUL ŞARTLARI", "page": null, "evidence": "Lisans öğreniminde en az 6 yarıyılı başarıyla tamamlamış olmak." }]
+    },
+
+    {
+      "id": "oi-001", "type": "direct",
+      "question": "Kayıt dondurmak için bir form var mı?",
+      "expected_answer": "Evet, Kayıt Dondurma Başvuru Formu.",
+      "sources": [{ "document": "oi-formlar", "section": null, "page": null, "evidence": "Kayıt Dondurma Başvuru Formu" }]
+    },
+    {
+      "id": "oi-002", "type": "paraphrase",
+      "question": "Sınav notumun yanlış olduğunu düşünüyorum, ne doldurmam gerekiyor?",
+      "expected_answer": "Sınav Sonucuna İtiraz Formu (ya da maddi hata için Sınav Maddi Hata Düzeltme Formu).",
+      "sources": [{ "document": "oi-formlar", "section": null, "page": null, "evidence": "Sınav Sonucuna İtiraz Formu" }]
+    },
+    {
+      "id": "oi-003", "type": "paraphrase",
+      "question": "Hastalandığım için giremediğim sınava sonradan girebilir miyim?",
+      "expected_answer": "Mazeret Sınav Talep Formu ile başvurulur.",
+      "sources": [{ "document": "oi-formlar", "section": null, "page": null, "evidence": "Mazeret Sınav Talep Formu" }]
+    },
+    {
+      "id": "oi-004", "type": "short",
+      "question": "diploma kayıp",
+      "expected_answer": "İkinci Nüsha Diploma Talep Formu.",
+      "sources": [{ "document": "oi-formlar", "section": null, "page": null, "evidence": "İkinci Nüsha Diploma Talep Formu" }]
+    },
+
+    {
+      "id": "tf-001", "type": "direct",
+      "question": "BTU-İMEP Dersini Alabilme Şartları belgesine nereden ulaşabilirim?",
+      "expected_answer": "depo.btu.edu.tr'deki PDF bağlantısından.",
+      "sources": [{ "document": "tum-formlar", "section": "1. BTU-İMEP Dersini Alabilme Şartları", "page": null, "evidence": "https://depo.btu.edu.tr/img/sayfa//1714395900_7c9286df8ac4db4a54ef.pdf" }]
+    },
+    {
+      "id": "tf-002", "type": "exact_term",
+      "question": "7592 sayılı af kanunu başvurusu",
+      "expected_answer": "btu.edu.tr'deki duyuru.",
+      "sources": [{ "document": "tum-formlar", "section": null, "page": null, "evidence": "https://btu.edu.tr/tr/duyuru/detay/54729/7592-sayılı-af-kanunu-başvurusu-hakkında-duyuru" }]
+    },
+    {
+      "id": "tf-003", "type": "paraphrase",
+      "question": "Başka bir üniversiteden misafir öğrenci olarak gelmek istiyorum; güz başvuruları için duyuru var mı?",
+      "expected_answer": "Evet, 2026-2027 Güz Yarıyılı Özel ve Misafir Öğrenci Başvuruları duyurusu.",
+      "sources": [{ "document": "tum-formlar", "section": null, "page": null, "evidence": "2026-2027 Güz Yarıyılı Özel ve Misafir Öğrenci Başvuruları" }]
+    },
+    {
+      "id": "tf-004", "type": "short",
+      "question": "teknofest sponsorluk",
+      "expected_answer": "Teknofest Sponsorluk Formu sayfası.",
+      "sources": [{ "document": "tum-formlar", "section": "14. Teknofest Sponsorluk Formu", "page": null, "evidence": "https://ogrenci.btu.edu.tr/tr/sayfa/detay/4563/teknofest-sponsorluk-formu" }]
+    },
+
+    {
+      "id": "x-001", "type": "multi_section",
+      "question": "İMEP sırasında hastalanıp rapor alırsam kime ve ne kadar sürede bildirmeliyim?",
+      "expected_answer": "2 gün içinde; SSS'ye göre işletme eğiticisine ve akademik danışmana, yönergeye göre Bölüm Koordinatörüne ve İşletme Eğiticisine. (İki belge çelişiyor; kaynak doğrulanınca düzeltilmeli.)",
+      "sources": [
+        { "document": "sss", "section": null, "page": null, "evidence": "Cevap: Resmi sağlık kuruluşlarından alınan istirahat raporları en geç 2 gün içinde hem firmadaki işletme eğiticisine hem de akademik danışmana iletilmelidir." },
+        { "document": "yonerge", "section": "BÖLÜM 4: DEVAM ZORUNLULUĞU VE DİSİPLİN", "page": null, "evidence": "Madde 9 - Hastalık, birinci derece yakın kaybı veya resmi sınavlar durumunda alınan rapor/belge 2 gün içerisinde İMEP Bölüm Koordinatörüne ve İşletme Eğiticisine bildirilmelidir." }
+      ]
+    },
+    {
+      "id": "x-002", "type": "multi_section",
+      "question": "İMEP notumu kimler veriyor ve hangi formlar kullanılıyor?",
+      "expected_answer": "İşletme eğiticisi %40 (F9), akademik danışman %30 (F8), rapor/çalışma dosyası %30.",
+      "sources": [
+        { "document": "yonerge", "section": "BÖLÜM 5: EVALUATION AND GRADING (DEĞERLENDİRME VE NOTLANDIRMA)", "page": null, "evidence": "Akademik Danışman Sunumu / Sözlü Mülakat Notu (%30 ağırlık)" },
+        { "document": "imep-formlar", "section": "BTÜ-İMEP F9: Sektör Danışmanı Değerlendirme Formu", "page": null, "evidence": "F9 Sektör Danışmanı Formu İndir: https://depo.btu.edu.tr/img/sayfa//1781248106_38af4c50cceee6907119.docx" }
+      ]
+    },
+    {
+      "id": "x-003", "type": "multi_section",
+      "question": "Güz ve bahar dönemlerinde İMEP başvuruları hangi tarihlerde?",
+      "expected_answer": "Güz: 15 Temmuz - 25 Ağustos; Bahar: 15 Aralık - 20 Ocak.",
+      "sources": [
+        { "document": "takvim", "section": "GÜZ DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP Başvuru ve Firma Tercihleri: 15 Temmuz - 25 Ağustos" },
+        { "document": "takvim", "section": "BAHAR DÖNEMİ AKADEMİK TAKVİM", "page": null, "evidence": "İMEP Başvuru ve Firma Tercihleri: 15 Aralık - 20 Ocak" }
+      ]
+    },
+
+    { "id": "x-004", "type": "unanswerable", "question": "Yemekhane saat kaçta açılıyor?", "expected_answer": null, "sources": [] },
+    { "id": "x-005", "type": "unanswerable", "question": "Yurt başvurusu nasıl yapılır?", "expected_answer": null, "sources": [] },
+    { "id": "x-006", "type": "unanswerable", "question": "İMEP'i Erasmus ile yurt dışında yapabilir miyim?", "expected_answer": null, "sources": [] },
+    { "id": "x-007", "type": "unanswerable", "question": "Kütüphane hafta sonu açık mı?", "expected_answer": null, "sources": [] },
+    { "id": "x-008", "type": "unanswerable", "question": "Burs başvuruları ne zaman başlıyor?", "expected_answer": null, "sources": [] }
+  ]
+}

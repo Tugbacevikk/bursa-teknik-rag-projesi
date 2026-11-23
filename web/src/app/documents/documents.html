@@ -1,0 +1,116 @@
+<header class="head">
+  <div>
+    <h1 class="title">Belgeler</h1>
+    <p class="subtitle">Öğrencilerin sorularına bu belgelerden cevap verilir.</p>
+  </div>
+  <button matButton="filled" type="button" (click)="openUpload()">Belge yükle</button>
+</header>
+
+@if (inProgress() > 0) {
+  <p class="progress" role="status">
+    <mat-spinner diameter="16" aria-hidden="true" />
+    {{ inProgress() }} belge işleniyor; liste kendiliğinden güncellenir.
+  </p>
+}
+
+@if (!loaded()) {
+  <div class="center"><mat-spinner diameter="32" aria-label="Belgeler yükleniyor" /></div>
+} @else if (loadFailed()) {
+  <div class="empty" role="alert">
+    <p>Belgeler alınamadı.</p>
+    <button matButton="outlined" type="button" (click)="load()">Yeniden dene</button>
+  </div>
+} @else if (documents().length === 0) {
+  <div class="empty">
+    <p>Henüz belge yok.</p>
+    <p class="hint">
+      Yönerge, takvim, SSS ya da form yükleyin; öğrenci soruları bu belgelerle cevaplanır.
+    </p>
+  </div>
+} @else {
+  <div class="table-wrap">
+    <table mat-table [dataSource]="documents()">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Başlık</th>
+        <td mat-cell *matCellDef="let d">
+          <span class="doc-title">{{ d.title }}</span>
+          <span class="doc-file">{{ d.fileName }} · {{ formatSize(d.sizeBytes) }}</span>
+          @if (d.failureReason) {
+            <span class="doc-reason" [class.failed]="d.status === 'Failed'">{{
+              d.failureReason
+            }}</span>
+          }
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="unit">
+        <th mat-header-cell *matHeaderCellDef>Birim</th>
+        <td mat-cell *matCellDef="let d">{{ d.unit }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="kind">
+        <th mat-header-cell *matHeaderCellDef>Tür</th>
+        <td mat-cell *matCellDef="let d">{{ kindLabel(d) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Durum</th>
+        <td mat-cell *matCellDef="let d">
+          <span class="status" [attr.data-status]="d.status">{{ statusLabel(d) }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="version">
+        <th mat-header-cell *matHeaderCellDef>Sürüm</th>
+        <td mat-cell *matCellDef="let d">{{ d.version }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="chunks">
+        <th mat-header-cell *matHeaderCellDef>Parça</th>
+        <td mat-cell *matCellDef="let d">{{ d.chunkCount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="updated">
+        <th mat-header-cell *matHeaderCellDef>Güncellendi</th>
+        <td mat-cell *matCellDef="let d">{{ formatDate(d.updatedAt) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef><span class="visually-hidden">İşlemler</span></th>
+        <td mat-cell *matCellDef="let d">
+          <button
+            matButton
+            type="button"
+            [matMenuTriggerFor]="menu"
+            [attr.aria-label]="d.title + ' için işlemler'"
+          >
+            ⋮
+          </button>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item [href]="fileUrl(d)" download>İndir</a>
+            <button mat-menu-item type="button" (click)="chooseNewVersion(d, replaceInput)">
+              Yeni sürüm yükle
+            </button>
+            <button mat-menu-item type="button" class="danger" (click)="confirmDelete(d)">
+              Sil
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+  </div>
+}
+
+<!-- Shared by every row's "Yeni sürüm yükle". -->
+<input
+  #replaceInput
+  class="visually-hidden"
+  type="file"
+  [accept]="accept"
+  tabindex="-1"
+  aria-hidden="true"
+  (change)="uploadNewVersion($event)"
+/>

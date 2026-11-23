@@ -1,27 +1,169 @@
-version: '3.8'
+# The production layout (PLANNING Faz 6). On the server:
+#
+#   docker compose -f docker-compose.yml up -d
+#
+# Naming the file keeps docker-compose.override.yml (development: ports on this machine)
+# out. No service here publishes a port to the host except the web front door; the others
+# talk over the project's own network.
+
+name: btu-asistan
+
+# Docker keeps every container's output in a file; without a cap it grows forever.
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: "5"
 
 services:
-  streamlit-app:
-    build: .
-    container_name: btu_asistan_streamlit
-    ports:
-      - "8501:8501"
+  postgres:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    logging: *logging
     environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      # Read by the init script that creates the restricted app account.
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
     volumes:
-      - ./data:/app/data
-      - ./chroma_db:/app/chroma_db
-    restart: always
+      - postgres-data:/var/lib/postgresql/data
+      # Runs only when the volume is created for the first time.
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
-  fastapi-service:
-    build: .
-    container_name: btu_asistan_api
-    command: python api.py
-    ports:
-      - "8000:8000"
+  # Stateless model service; only the .NET API calls it.
+  ai-service:
+    build:
+      context: ./ai-service
+      # The service only; the Dockerfile's last stage is the test image.
+      target: runtime
+    restart: unless-stopped
+    logging: *logging
     environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      # Must match Embedding:Model in the API, which refuses vectors from another model.
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-m3}
+      # 1 once the model is in the volume: starts without contacting Hugging Face, for
+      # servers without internet access.
+      HF_HUB_OFFLINE: ${HF_HUB_OFFLINE:-0}
+      # 1 loads the reranker too (about 2.3 GB more memory, slow on CPU); see PLANNING S5.
+      # The API uses it only when Reranker:Enabled is also true.
+      RERANKER_ENABLED: ${RERANKER_ENABLED:-0}
+      RERANKER_MODEL: ${RERANKER_MODEL:-BAAI/bge-reranker-v2-m3}
+      # Answers (PLANNING Faz 4). Empty key: /generate answers 503, the rest works.
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-}
     volumes:
-      - ./data:/app/data
-      - ./chroma_db:/app/chroma_db
-    restart: always
+      # Downloaded once (~2.3 GB for bge-m3), kept across rebuilds and restarts.
+      - ai-models:/models
+    # bge-m3 needs about 2.5 GB; the cap keeps a runaway request from starving the host.
+    mem_limit: ${AI_SERVICE_MEMORY:-6g}
+
+  # Brings the database schema up to date, then exits (E6). Runs on every `up`; with
+  # nothing new to apply it is done in a second.
+  migrate:
+    build: ./backend
+    image: btu-asistan-api
+    restart: "no"
+    logging: *logging
+    entrypoint: ["./efbundle"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # The table owner (decision 12): only migrations create tables and grant privileges.
+      ConnectionStrings__Migrations: Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+
+  api:
+    build: ./backend
+    # The same image as migrate, built once.
+    image: btu-asistan-api
+    restart: unless-stopped
+    logging: *logging
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      # Not "healthy": the model may take many minutes to download; the API waits for it
+      # on its own (documents stay Pending, chat answers "unavailable").
+      ai-service:
+        condition: service_started
+    # Only what the API needs; never the whole .env, which holds the Gemini key (C10).
+    environment:
+      ConnectionStrings__Default: Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=btu_asistan_app;Password=${APP_DB_PASSWORD}
+      # Empty: the API refuses to start (Jwt options) and says so in its log.
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:-}
+      AiService__BaseUrl: http://ai-service:8000
+      Embedding__Model: ${EMBEDDING_MODEL:-BAAI/bge-m3}
+      # Behind the web front door (E4).
+      ReverseProxy__Enabled: "true"
+    # Optional fine-tuning (rate limits, chat texts, retention…; README "Canlı ortam
+    # ayarları"), one KEY=value per line. Missing file: the defaults.
+    env_file:
+      - path: ./api.env
+        required: false
+
+  # A dump of the database every night into ./backups (E8); also restores one
+  # (docker/backup/backup.sh). Runs as root so it can write the host folder whoever owns
+  # it; the dumps themselves are readable by their owner only.
+  backup:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    logging: *logging
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: ["bash", "/usr/local/bin/backup.sh"]
+    environment:
+      PGHOST: postgres
+      PGUSER: ${POSTGRES_USER}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB}
+      BACKUP_TIME: ${BACKUP_TIME:-03:00}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      TZ: ${TZ:-Europe/Istanbul}
+    volumes:
+      - ./docker/backup/backup.sh:/usr/local/bin/backup.sh:ro
+      - ./backups:/backups
+    # Healthy while it can reach the database; tonight's backup would fail otherwise.
+    healthcheck:
+      test: ["CMD", "pg_isready", "--quiet"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+  # The only service reachable from outside (E2, E3): web/caddy/Caddyfile.
+  web:
+    build: ./web
+    restart: unless-stopped
+    logging: *logging
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-localhost}
+      TLS_MODE: ${TLS_MODE:-auto}
+      TLS_CERT_FILE: ${TLS_CERT_FILE:-cert.pem}
+      TLS_KEY_FILE: ${TLS_KEY_FILE:-key.pem}
+      WIDGET_ALLOWED_PARENTS: ${WIDGET_ALLOWED_PARENTS:-'none'}
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-127.0.0.1/32}
+    ports:
+      - "${HTTP_PORT:-80}:8080"
+      - "${HTTPS_PORT:-443}:8443"
+    volumes:
+      # Certificates Caddy obtained; kept so a restart does not ask Let's Encrypt again.
+      - web-data:/data
+      - web-config:/config
+      # The school's certificate files, for TLS_MODE=files.
+      - ./certs:/certs:ro
+
+volumes:
+  postgres-data:
+  ai-models:
+  web-data:
+  web-config:

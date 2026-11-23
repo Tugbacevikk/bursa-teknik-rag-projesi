@@ -1,19 +1,40 @@
-# Python cache
+# Environment
+.env
+api.env
+*.local.json
+
+# .NET
+bin/
+obj/
+*.user
+.vs/
+TestResults/
+
+# Angular / Node
+node_modules/
+.angular/
+dist/
+
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
+.venv/
+venv/
 .pytest_cache/
 
-# Virtual Environment
-venv/
-env/
-ENV/
+# Model cache
+.cache/
 
-# Chroma Vector Database
+# Legacy prototype artifacts
 chroma_db/
 
-# Data processed
-data/processed/
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
 
-# Environment Variables
-.env
+# The school's certificate files (TLS_MODE=files)
+certs/
+
+# Database dumps (Faz 6, E8): they hold the students' questions
+backups/

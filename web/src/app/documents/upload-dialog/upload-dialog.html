@@ -1,0 +1,105 @@
+<h2 mat-dialog-title>Belge yükle</h2>
+
+<mat-dialog-content>
+  @if (failure(); as message) {
+    <p class="failure" role="alert">{{ message }}</p>
+  }
+
+  <form id="upload-form" class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="file" [class.invalid]="fileError()">
+      <label class="file-button">
+        Dosya seç
+        <input type="file" [accept]="limits.accept" (change)="chooseFile($event)" />
+      </label>
+      <span class="file-name">{{
+        file()?.name ?? 'PDF, DOCX ya da Markdown/TXT, en fazla 20 MB'
+      }}</span>
+    </div>
+    @if (fileError(); as message) {
+      <p class="file-error" role="alert">{{ message }}</p>
+    }
+
+    <mat-form-field appearance="outline">
+      <mat-label>Başlık</mat-label>
+      <input matInput formControlName="title" />
+      <mat-hint>Öğrencilere kaynak olarak bu ad gösterilir.</mat-hint>
+      @if (form.controls.title.hasError('server')) {
+        <mat-error>{{ form.controls.title.getError('server') }}</mat-error>
+      } @else if (form.controls.title.hasError('required')) {
+        <mat-error>Başlık girin.</mat-error>
+      } @else if (form.controls.title.invalid) {
+        <mat-error>Başlık çok uzun.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Birim</mat-label>
+      <input matInput formControlName="unit" [matAutocomplete]="units" />
+      <mat-autocomplete #units="matAutocomplete">
+        @for (unit of unitSuggestions(); track unit) {
+          <mat-option [value]="unit">{{ unit }}</mat-option>
+        }
+      </mat-autocomplete>
+      @if (form.controls.unit.hasError('server')) {
+        <mat-error>{{ form.controls.unit.getError('server') }}</mat-error>
+      } @else if (form.controls.unit.hasError('required')) {
+        <mat-error>Belgenin ait olduğu birimi girin.</mat-error>
+      } @else if (form.controls.unit.invalid) {
+        <mat-error>Birim adı çok uzun.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tür</mat-label>
+      <mat-select formControlName="kind">
+        @for (kind of kinds; track kind[0]) {
+          <mat-option [value]="kind[0]">{{ kind[1] }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.kind.hasError('server')) {
+        <mat-error>{{ form.controls.kind.getError('server') }}</mat-error>
+      } @else {
+        <mat-error>Belge türünü seçin.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Kaynak adresi (isteğe bağlı)</mat-label>
+      <input
+        matInput
+        formControlName="sourceUrl"
+        type="url"
+        inputmode="url"
+        placeholder="https://imep.btu.edu.tr/…"
+      />
+      <mat-hint>Resmî sayfanın adresi; öğrenciler bilgiyi oradan doğrulayabilir.</mat-hint>
+      @if (form.controls.sourceUrl.hasError('server')) {
+        <mat-error>{{ form.controls.sourceUrl.getError('server') }}</mat-error>
+      } @else {
+        <mat-error>http:// ya da https:// ile başlayan tam bir adres girin.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Geçerlilik dönemi (isteğe bağlı)</mat-label>
+      <input matInput formControlName="validityPeriod" placeholder="2026-2027" />
+      <mat-hint>Takvim gibi yıla bağlı belgelerde mutlaka doldurun.</mat-hint>
+      @if (form.controls.validityPeriod.hasError('server')) {
+        <mat-error>{{ form.controls.validityPeriod.getError('server') }}</mat-error>
+      } @else {
+        <mat-error>Geçerlilik dönemi çok uzun.</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button matButton type="button" mat-dialog-close [disabled]="submitting()">Vazgeç</button>
+  <button matButton="filled" type="submit" form="upload-form" [disabled]="submitting()">
+    @if (submitting()) {
+      <mat-spinner diameter="20" aria-label="Yükleniyor" />
+    } @else {
+      Yükle
+    }
+  </button>
+</mat-dialog-actions>

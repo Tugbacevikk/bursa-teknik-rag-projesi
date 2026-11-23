@@ -1,0 +1,4 @@
+<Project>
+  <!-- Package versions come from the API's list, so both use the same EF Core, Npgsql and pgvector. -->
+  <Import Project="../backend/Directory.Packages.props" />
+</Project>

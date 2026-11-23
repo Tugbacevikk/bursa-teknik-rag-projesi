@@ -1,0 +1,580 @@
+{
+  "runAt": "2026-11-17T17:03:44.0341526+03:00",
+  "label": "tarama-c30-k20",
+  "questionSet": {
+    "version": 1,
+    "draft": true,
+    "author": "Claude (taslak, 2026-11-17); ekip gözden geçirecek",
+    "questions": 57,
+    "sources": 55
+  },
+  "corpus": {
+    "documents": 8,
+    "chunks": 73,
+    "ids": [
+      "esaslar",
+      "imep-formlar",
+      "model",
+      "oi-formlar",
+      "sss",
+      "takvim",
+      "tum-formlar",
+      "yonerge"
+    ]
+  },
+  "settings": {
+    "candidateCount": 30,
+    "resultCount": 8,
+    "rrfK": 20,
+    "rerankCandidateCount": 20,
+    "embeddingModel": "BAAI/bge-m3"
+  },
+  "methods": [
+    {
+      "name": "hybrid",
+      "overall": {
+        "sources": 55,
+        "top1": 32,
+        "top5": 48,
+        "top8": 49,
+        "mrr": 0.7036363636363637
+      },
+      "byType": {
+        "direct": {
+          "sources": 16,
+          "top1": 11,
+          "top5": 16,
+          "top8": 16,
+          "mrr": 0.8229166666666666
+        },
+        "paraphrase": {
+          "sources": 21,
+          "top1": 9,
+          "top5": 16,
+          "top8": 17,
+          "mrr": 0.5611111111111112
+        },
+        "short": {
+          "sources": 6,
+          "top1": 5,
+          "top5": 6,
+          "top8": 6,
+          "mrr": 0.9166666666666666
+        },
+        "exact_term": {
+          "sources": 6,
+          "top1": 6,
+          "top5": 6,
+          "top8": 6,
+          "mrr": 1
+        },
+        "multi_section": {
+          "sources": 6,
+          "top1": 1,
+          "top5": 4,
+          "top8": 4,
+          "mrr": 0.375
+        }
+      },
+      "averageMs": 165.58840350877196,
+      "maxMs": 256.5401
+    }
+  ],
+  "sources": [
+    {
+      "questionId": "takvim-001",
+      "type": "direct",
+      "document": "takvim",
+      "evidence": "İMEP Başvuru ve Firma Tercihleri: 15 Temmuz - 25 Ağustos",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "takvim-002",
+      "type": "direct",
+      "document": "takvim",
+      "evidence": "İMEP Ara Faaliyet Raporu (F3) Teslimi: 8. Hafta Sonu (Nisan ayının 2. haftası)",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "takvim-003",
+      "type": "paraphrase",
+      "document": "takvim",
+      "evidence": "İMEP İşletmede Eğitimin Başlaması: 25 Eylül (1. Hafta)",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "takvim-004",
+      "type": "paraphrase",
+      "document": "takvim",
+      "evidence": "Katkı Payı / Öğrenim Ücreti Yatırma: 05 - 09 Şubat",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "takvim-005",
+      "type": "short",
+      "document": "takvim",
+      "evidence": "Yaz Stajı Başvuruları: Mayıs ayı sonuna kadar İMEP/Bölüm staj komisyonuna teslim edilir.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "takvim-006",
+      "type": "exact_term",
+      "document": "takvim",
+      "evidence": "İMEP Final Faaliyet Raporu (F4) Teslimi: 16. Hafta Sonu (Ocak ayının 2. haftası)",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "takvim-007",
+      "type": "paraphrase",
+      "document": "takvim",
+      "evidence": "İMEP Sunum ve Mülakat Haftası: Haziran ayının 2. haftası",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "takvim-008",
+      "type": "direct",
+      "document": "takvim",
+      "evidence": "Yaz Okulu Kayıtları: Temmuz ayının ilk haftası",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "model-001",
+      "type": "direct",
+      "document": "model",
+      "evidence": "Eğitim planı dahilinde, öğrencilerimiz 7. Yarıyılda BTÜ-İMEP’ programına katılmaktadır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "model-002",
+      "type": "paraphrase",
+      "document": "model",
+      "evidence": "Bu sürecinin verimli bir şekilde geçirilebilmesi için, 5. ve 6. yarıyılda (BTÜ-İMEP başlamadan) kariyer eğitimi verilmektedir.",
+      "ranks": {
+        "hybrid": 4
+      }
+    },
+    {
+      "questionId": "model-003",
+      "type": "paraphrase",
+      "document": "model",
+      "evidence": "BTÜ-İMEP kapsamında geçirilen dönemde, öğrenciler yerleştikleri kurumlarda aktif bir çalışan gibi görevler almakta ve bir proje çalışmasına dahil olmaktadır.",
+      "ranks": {
+        "hybrid": null
+      }
+    },
+    {
+      "questionId": "model-004",
+      "type": "paraphrase",
+      "document": "model",
+      "evidence": "Bu kapsamda, öğrencilerimizin tercih etmeleri durumunda, üniversitelerde bir öğretim üyesinin devam etmekte olan projesinde yardımcı araştırmacı olarak görev almalarına fırsat verilmektedir.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "model-005",
+      "type": "direct",
+      "document": "model",
+      "evidence": "Lisans öğreniminin son döneminde ise, kampüs eğitiminde edinilen akademik bilgiler ile BTÜ-İMEP kapsamında edinilen endüstriyel tecrübe birleştirilerek, sanayi problemlerinin çözümüne yönelik bir bitirme çalışması yaptırılmaktadır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "if-001",
+      "type": "exact_term",
+      "document": "imep-formlar",
+      "evidence": "Tanım: İMEP'e kabul edilen öğrenci, üniversite ve firma arasında imzalanan, öğrencinin hak ve sorumluluklarını düzenleyen ana sözleşmedir.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "if-002",
+      "type": "paraphrase",
+      "document": "imep-formlar",
+      "evidence": "F3 Ara Rapor Taslağı İndir: https://depo.btu.edu.tr/img/sayfa//1697005508_abe21b4248c0c8f882ff.docx",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "if-003",
+      "type": "exact_term",
+      "document": "imep-formlar",
+      "evidence": "Tanım: İşletmedeki eğitici/sektör danışmanının öğrencinin devamlılığı, performansı ve iş disiplinine ilişkin doldurduğu notlandırma formudur (%40 not ağırlığı).",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "if-004",
+      "type": "short",
+      "document": "imep-formlar",
+      "evidence": "F1 Kontenjan Çizelgesi İndir: https://depo.btu.edu.tr/img/sayfa//1786688772_48daed1e94f7209da1d0.docx",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "if-005",
+      "type": "paraphrase",
+      "document": "imep-formlar",
+      "evidence": "Tanım: BTÜ öğretim üyesinin (akademik danışman) öğrencinin İMEP sunumu, raporu ve performansına verdiği değerlendirme formudur (%30 not ağırlığı).",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "if-006",
+      "type": "direct",
+      "document": "imep-formlar",
+      "evidence": "Tanım: İMEP dönem sonunda 16 haftalık tüm çalışmaları kapsayan nihai dönem raporu formatıdır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "esaslar-001",
+      "type": "direct",
+      "document": "esaslar",
+      "evidence": "Her BTÜ-İMEP  döneminden önce,  öğrencilerimiz kendilerine uygun kurumları, kurumlar da öğrenciler arasından tercih ettiği isimleri BTÜ-İMEP OTOMASYON SİSTEMİ üzerinden tercih ederek Koordinatörlüğe bildirir.",
+      "ranks": {
+        "hybrid": 3
+      }
+    },
+    {
+      "questionId": "esaslar-002",
+      "type": "paraphrase",
+      "document": "esaslar",
+      "evidence": "Öğrencilerimiz ile kurumlarımızın tercihlerinin eşleşmesi durumunda, kurumun öğrenci ile görüştürülerek bir mülakata girmesi sağlanıp, süreç resmiyete kavuşturulur.",
+      "ranks": {
+        "hybrid": null
+      }
+    },
+    {
+      "questionId": "esaslar-003",
+      "type": "paraphrase",
+      "document": "esaslar",
+      "evidence": "BTÜ-İMEP  sürecinde, öğrencilerimizin çalışmaları hem BTÜ’den bir öğretim üyesi, hem de kurumdan görevlendirilecek bir meslek mensubu tarafından devamlı olarak izlenerek değerlendirilir.",
+      "ranks": {
+        "hybrid": null
+      }
+    },
+    {
+      "questionId": "esaslar-004",
+      "type": "direct",
+      "document": "esaslar",
+      "evidence": "Programın tamamlanması için öğrenciler 16 haftalık çalışma döneminde yapılan çalışmaları anlatan bir teknik rapor hazırlar.",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "esaslar-005",
+      "type": "paraphrase",
+      "document": "esaslar",
+      "evidence": "Bu sözleşmede, kurumun sağladığı öğrenci kontenjanları bölümler bazında karara bağlanır.",
+      "ranks": {
+        "hybrid": 6
+      }
+    },
+    {
+      "questionId": "sss-001",
+      "type": "direct",
+      "document": "sss",
+      "evidence": "Cevap: İMEP, tam bir akademik yarıyıl (16 hafta) boyunca haftada 5 gün işletmede tam zamanlı çalışma gerektiren kredili bir ders/programdır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "sss-002",
+      "type": "paraphrase",
+      "document": "sss",
+      "evidence": "Öğrenciler kendi buldukları firmalarda İMEP yapabilirler.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "sss-003",
+      "type": "paraphrase",
+      "document": "sss",
+      "evidence": "İMEP tam zamanlı bir program olduğu için öğrenciler İMEP aldıkları dönemde sadece Bitirme Projesi/Tasarım dersi alabilirler.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "sss-004",
+      "type": "short",
+      "document": "sss",
+      "evidence": "Cevap: Ücretler çalıştığınız firma tarafından her ayın sonunda veya takip eden ayın ilk haftasında öğrencinin banka hesabına yatırılır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "sss-005",
+      "type": "direct",
+      "document": "sss",
+      "evidence": "Mülakatlarda öğrencinin GANO'su, teknik bilgisi, alan projeleri ve iletişim becerileri değerlendirilir.",
+      "ranks": {
+        "hybrid": 3
+      }
+    },
+    {
+      "questionId": "sss-006",
+      "type": "direct",
+      "document": "sss",
+      "evidence": "Firma uygunluk formu en geç ders kayıt haftasından 2 hafta önce komisyona sunulmalıdır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-001",
+      "type": "exact_term",
+      "document": "yonerge",
+      "evidence": "Genel Ağırlıklı Not Ortalamasının (GANO) en az 2.00 / 4.00 olması",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-002",
+      "type": "paraphrase",
+      "document": "yonerge",
+      "evidence": "Genel Ağırlıklı Not Ortalamasının (GANO) en az 2.00 / 4.00 olması",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-003",
+      "type": "paraphrase",
+      "document": "yonerge",
+      "evidence": "İMEP süresince öğrencilerin \"İş Kazası ve Meslek Hastalığı Sigortası\" Bursa Teknik Üniversitesi Rektörlüğü tarafından karşılanır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-004",
+      "type": "paraphrase",
+      "document": "yonerge",
+      "evidence": "Madde 6 - İşletmeler, İMEP öğrencilerine 3308 sayılı kanun kapsamında asgari ücretin net tutarının en az %30'u oranında aylık ücret ödemekle yükümlüdür.",
+      "ranks": {
+        "hybrid": 3
+      }
+    },
+    {
+      "questionId": "yonerge-005",
+      "type": "paraphrase",
+      "document": "yonerge",
+      "evidence": "Madde 8 - Mazeretsiz veya izinsiz olarak 3 günden fazla devamsızlık yapan öğrencinin İMEP kaydı başarısız (FF) sayılarak kapatılır.",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "yonerge-006",
+      "type": "direct",
+      "document": "yonerge",
+      "evidence": "Madde 11 - Başarılı olabilmek için harf notunun en az CC veya üzeri olması şarttır.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-007",
+      "type": "short",
+      "document": "yonerge",
+      "evidence": "İşletme Eğiticisi Değerlendirme Notu (%40 ağırlık)",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-008",
+      "type": "direct",
+      "document": "yonerge",
+      "evidence": "Bu rapor dönemin son haftasında akademik danışmana hem basılı hem de İMEP Portalı üzerinden PDF olarak teslim edilir.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-009",
+      "type": "exact_term",
+      "document": "yonerge",
+      "evidence": "Madde 5 - 3308 Sayılı İş Kanunu ve 5510 Sayılı Sosyal Sigortalar Kanunu uyarınca",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "yonerge-010",
+      "type": "paraphrase",
+      "document": "yonerge",
+      "evidence": "Madde 12 - Öğrenciler her hafta yapılan çalışmaları kapsayan \"İMEP Haftalık Çalışma Raporu\"nu hazırlar ve İşletme Eğiticisine onaylatır.",
+      "ranks": {
+        "hybrid": null
+      }
+    },
+    {
+      "questionId": "yonerge-011",
+      "type": "direct",
+      "document": "yonerge",
+      "evidence": "Lisans öğreniminde en az 6 yarıyılı başarıyla tamamlamış olmak.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "oi-001",
+      "type": "direct",
+      "document": "oi-formlar",
+      "evidence": "Kayıt Dondurma Başvuru Formu",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "oi-002",
+      "type": "paraphrase",
+      "document": "oi-formlar",
+      "evidence": "Sınav Sonucuna İtiraz Formu",
+      "ranks": {
+        "hybrid": 3
+      }
+    },
+    {
+      "questionId": "oi-003",
+      "type": "paraphrase",
+      "document": "oi-formlar",
+      "evidence": "Mazeret Sınav Talep Formu",
+      "ranks": {
+        "hybrid": 5
+      }
+    },
+    {
+      "questionId": "oi-004",
+      "type": "short",
+      "document": "oi-formlar",
+      "evidence": "İkinci Nüsha Diploma Talep Formu",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "tf-001",
+      "type": "direct",
+      "document": "tum-formlar",
+      "evidence": "https://depo.btu.edu.tr/img/sayfa//1714395900_7c9286df8ac4db4a54ef.pdf",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "tf-002",
+      "type": "exact_term",
+      "document": "tum-formlar",
+      "evidence": "https://btu.edu.tr/tr/duyuru/detay/54729/7592-sayılı-af-kanunu-başvurusu-hakkında-duyuru",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "tf-003",
+      "type": "paraphrase",
+      "document": "tum-formlar",
+      "evidence": "2026-2027 Güz Yarıyılı Özel ve Misafir Öğrenci Başvuruları",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "tf-004",
+      "type": "short",
+      "document": "tum-formlar",
+      "evidence": "https://ogrenci.btu.edu.tr/tr/sayfa/detay/4563/teknofest-sponsorluk-formu",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "x-001",
+      "type": "multi_section",
+      "document": "sss",
+      "evidence": "Cevap: Resmi sağlık kuruluşlarından alınan istirahat raporları en geç 2 gün içinde hem firmadaki işletme eğiticisine hem de akademik danışmana iletilmelidir.",
+      "ranks": {
+        "hybrid": 1
+      }
+    },
+    {
+      "questionId": "x-001",
+      "type": "multi_section",
+      "document": "yonerge",
+      "evidence": "Madde 9 - Hastalık, birinci derece yakın kaybı veya resmi sınavlar durumunda alınan rapor/belge 2 gün içerisinde İMEP Bölüm Koordinatörüne ve İşletme Eğiticisine bildirilmelidir.",
+      "ranks": {
+        "hybrid": null
+      }
+    },
+    {
+      "questionId": "x-002",
+      "type": "multi_section",
+      "document": "yonerge",
+      "evidence": "Akademik Danışman Sunumu / Sözlü Mülakat Notu (%30 ağırlık)",
+      "ranks": {
+        "hybrid": null
+      }
+    },
+    {
+      "questionId": "x-002",
+      "type": "multi_section",
+      "document": "imep-formlar",
+      "evidence": "F9 Sektör Danışmanı Formu İndir: https://depo.btu.edu.tr/img/sayfa//1781248106_38af4c50cceee6907119.docx",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "x-003",
+      "type": "multi_section",
+      "document": "takvim",
+      "evidence": "İMEP Başvuru ve Firma Tercihleri: 15 Temmuz - 25 Ağustos",
+      "ranks": {
+        "hybrid": 2
+      }
+    },
+    {
+      "questionId": "x-003",
+      "type": "multi_section",
+      "document": "takvim",
+      "evidence": "İMEP Başvuru ve Firma Tercihleri: 15 Aralık - 20 Ocak",
+      "ranks": {
+        "hybrid": 4
+      }
+    }
+  ]
+}

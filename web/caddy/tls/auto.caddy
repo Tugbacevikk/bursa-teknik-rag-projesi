@@ -1,0 +1,5 @@
+# TLS_MODE=auto: Caddy gets a certificate from Let's Encrypt for SITE_ADDRESS and renews it.
+# The address must resolve to this server and ports 80 and 443 must be reachable from the
+# internet. Nothing to configure here.
+
+header Strict-Transport-Security "max-age=31536000"

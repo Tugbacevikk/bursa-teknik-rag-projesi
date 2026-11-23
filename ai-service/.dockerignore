@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+# tests/ is kept: only the "test" stage copies it; the service image copies app/ alone.

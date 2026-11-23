@@ -1,0 +1,7 @@
+# Build output and local files: the image builds everything itself.
+**/bin/
+**/obj/
+**/*.user
+.vs/
+**/TestResults/
+**/appsettings.Development.json
