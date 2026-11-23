@@ -1,6 +1,6 @@
 # Two images from one file: "runtime" is the service (what compose builds for the server),
 # "test" is the same image with pytest and the tests (PLANNING Testler, T4).
-FROM python:3.12-slim AS runtime
+FROM python:3.15-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
