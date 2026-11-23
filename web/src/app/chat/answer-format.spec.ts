@@ -15,6 +15,7 @@ describe('formatAnswer', () => {
     expect(blocks.map((b) => b.kind)).toEqual(['paragraph', 'list', 'paragraph']);
     expect(blocks[1]).toEqual({
       kind: 'list',
+      ordered: false,
       items: [
         [{ kind: 'text', text: 'GANO 2,00' }],
         [{ kind: 'text', text: '6 yarıyıl' }],
@@ -61,6 +62,43 @@ describe('formatAnswer', () => {
   it('leaves HTML as text', () => {
     expect(formatAnswer('<img src=x onerror=alert(1)>', 1)).toEqual([
       { kind: 'paragraph', inlines: [{ kind: 'text', text: '<img src=x onerror=alert(1)>' }] },
+    ]);
+  });
+
+  it('marks a numbered list as ordered, so the steps keep their numbers', () => {
+    expect(formatAnswer('1. Başvuru\n2. Mülakat', 0)).toEqual([
+      {
+        kind: 'list',
+        ordered: true,
+        items: [[{ kind: 'text', text: 'Başvuru' }], [{ kind: 'text', text: 'Mülakat' }]],
+      },
+    ]);
+  });
+
+  it('shows a heading as a bold line, without its "#" marks', () => {
+    expect(formatAnswer('### Gerekli belgeler [1]\nKimlik.', 1)).toEqual([
+      { kind: 'paragraph', inlines: [{ kind: 'bold', text: 'Gerekli belgeler ' }, { kind: 'cite', number: 1 }] },
+      { kind: 'paragraph', inlines: [{ kind: 'text', text: 'Kimlik.' }] },
+    ]);
+  });
+
+  it('keeps a citation inside bold a citation', () => {
+    expect(formatAnswer('Son gün **25 Ağustos [2]**.', 2)).toEqual([
+      {
+        kind: 'paragraph',
+        inlines: [
+          { kind: 'text', text: 'Son gün ' },
+          { kind: 'bold', text: '25 Ağustos ' },
+          { kind: 'cite', number: 2 },
+          { kind: 'text', text: '.' },
+        ],
+      },
+    ]);
+  });
+
+  it('leaves "#" that is not a heading as text', () => {
+    expect(formatAnswer('#5 numaralı form', 0)).toEqual([
+      { kind: 'paragraph', inlines: [{ kind: 'text', text: '#5 numaralı form' }] },
     ]);
   });
 

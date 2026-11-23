@@ -118,6 +118,21 @@ public sealed class ChatTests : IClassFixture<SeededApiFixture>
         Assert.False(await api.WithDbAsync(db => db.Conversations.AnyAsync(c => c.Id == conversationId, Cancel)));
     }
 
+    // A model that ends without writing anything (e.g. its safety filter) is not an answer:
+    // nothing empty is stored or shown as answered.
+    [Fact]
+    public async Task Answer_without_text_is_an_error_and_nothing_is_stored()
+    {
+        api.Answers.Respond = _ => FakeAnswerGenerator.Answer("  ");
+
+        var (_, events) = await ChatStream.AskAsync(api.Anonymous(), "Sigortayı kim öder?");
+
+        Assert.Equal("error", events.Last().Type);
+        Assert.DoesNotContain(events, e => e.Type == "done");
+        var conversationId = events.ConversationId();
+        Assert.False(await api.WithDbAsync(db => db.Conversations.AnyAsync(c => c.Id == conversationId, Cancel)));
+    }
+
     // C4: a follow-up question sees the chat so far; old citations are taken out because
     // their numbers belong to the old sources.
     [Fact]

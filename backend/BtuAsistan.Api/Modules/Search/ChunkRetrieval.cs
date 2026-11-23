@@ -60,9 +60,15 @@ public sealed class ChunkRetrieval(
         var fused = fusion.Fuse([keywordHits, vectorHits]);
 
         var useReranker = reranker is not null && (request.UseReranker ?? true);
-        var candidates = fused.Take(useReranker ? Math.Max(settings.RerankCandidateCount, resultCount) : resultCount).ToList();
+        var wanted = useReranker ? Math.Max(settings.RerankCandidateCount, resultCount) : resultCount;
 
-        var chunks = await LoadAsync(candidates, Positions(keywordHits), Positions(vectorHits), cancellationToken);
+        // Every fused hit is loaded (at most 2 × CandidateCount) and the list is cut after:
+        // the searches also see chunks of documents that are not ready (being processed or
+        // replaced a moment ago), which LoadAsync leaves out. Cutting first would hand the
+        // model fewer chunks than ResultCount whenever such a chunk ranked high.
+        var chunks = (await LoadAsync(fused, Positions(keywordHits), Positions(vectorHits), cancellationToken))
+            .Take(wanted)
+            .ToList();
 
         var reranked = false;
         if (useReranker && chunks.Count > 1)

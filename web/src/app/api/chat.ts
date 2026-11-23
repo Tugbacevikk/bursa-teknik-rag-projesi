@@ -152,6 +152,13 @@ async function* readServerSentEvents(body: ReadableStream<Uint8Array>, signal: A
     while (!signal.aborted) {
       const { value, done } = await reader.read();
       if (done) {
+        // A last event the stream closed without its blank line (e.g. cut by a proxy) is
+        // still read, together with any bytes the decoder was holding back.
+        const rest = (buffered + decoder.decode()).replace(/\r\n/g, '\n').trim();
+        const event = rest ? parseEvent(rest) : null;
+        if (event) {
+          yield event;
+        }
         return;
       }
 

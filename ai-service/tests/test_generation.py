@@ -83,3 +83,13 @@ def test_ndjson_is_one_json_object_per_line_with_turkish_letters_as_is():
 
     assert lines == ['{"type": "delta", "text": "Öğrenci işleri"}\n', '{"type": "done", "model": "m"}\n']
     assert [json.loads(line)["type"] for line in lines] == ["delta", "done"]
+
+
+@pytest.mark.parametrize("pieces", [[], [""], ["  ", "\n"]])
+def test_an_answer_with_no_text_is_an_error_not_done(pieces):
+    # e.g. Gemini's safety filter stops the answer before the first token: an empty
+    # "done" would be stored and shown as an (empty) answer.
+    result = events(FakeChatModel(pieces))
+
+    assert result[-1]["type"] == "error"
+    assert not any(e["type"] == "done" for e in result)

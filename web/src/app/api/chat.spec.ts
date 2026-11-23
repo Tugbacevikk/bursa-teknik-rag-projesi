@@ -81,6 +81,16 @@ describe('ChatApi.ask', () => {
     expect(await collect(api)).toEqual([{ type: 'not_found', messageId: 'm2', message: 'Bulamadım.' }]);
   });
 
+  it('still reads a last event the stream closed without its blank line', async () => {
+    const body = sse([{ type: 'delta', data: { text: 'Cevap' } }]) + 'event: done\ndata: {"messageId":"m3"}';
+    fetchMock.mockResolvedValue(new Response(streamOf([new TextEncoder().encode(body)])));
+
+    expect(await collect(api)).toEqual([
+      { type: 'delta', text: 'Cevap' },
+      { type: 'done', messageId: 'm3' },
+    ]);
+  });
+
   it('reports the field message of a 400', async () => {
     fetchMock.mockResolvedValue(
       Response.json({ errors: { question: ['Soru boş olamaz.'] } }, { status: 400 }),

@@ -68,55 +68,42 @@
                 </p>
               }
 
+              <ng-template #parts let-parts>
+                @for (part of parts; track $index) {
+                  @switch (part.kind) {
+                    @case ('bold') {
+                      <strong>{{ part.text }}</strong>
+                    }
+                    @case ('cite') {
+                      <button
+                        type="button"
+                        class="cite"
+                        [attr.aria-label]="'Kaynak ' + part.number"
+                        (click)="showSource(turn, part.number)"
+                      >
+                        {{ part.number }}
+                      </button>
+                    }
+                    @default {
+                      {{ part.text }}
+                    }
+                  }
+                }
+              </ng-template>
+
               @for (block of blocks(turn); track $index) {
                 @if (block.kind === 'paragraph') {
-                  <p>
-                    @for (part of block.inlines; track $index) {
-                      @switch (part.kind) {
-                        @case ('bold') {
-                          <strong>{{ part.text }}</strong>
-                        }
-                        @case ('cite') {
-                          <button
-                            type="button"
-                            class="cite"
-                            [attr.aria-label]="'Kaynak ' + part.number"
-                            (click)="showSource(turn, part.number)"
-                          >
-                            {{ part.number }}
-                          </button>
-                        }
-                        @default {
-                          {{ part.text }}
-                        }
-                      }
+                  <p><ng-container *ngTemplateOutlet="parts; context: { $implicit: block.inlines }" /></p>
+                } @else if (block.ordered) {
+                  <ol class="answer-list">
+                    @for (item of block.items; track $index) {
+                      <li><ng-container *ngTemplateOutlet="parts; context: { $implicit: item }" /></li>
                     }
-                  </p>
+                  </ol>
                 } @else {
                   <ul>
                     @for (item of block.items; track $index) {
-                      <li>
-                        @for (part of item; track $index) {
-                          @switch (part.kind) {
-                            @case ('bold') {
-                              <strong>{{ part.text }}</strong>
-                            }
-                            @case ('cite') {
-                              <button
-                                type="button"
-                                class="cite"
-                                [attr.aria-label]="'Kaynak ' + part.number"
-                                (click)="showSource(turn, part.number)"
-                              >
-                                {{ part.number }}
-                              </button>
-                            }
-                            @default {
-                              {{ part.text }}
-                            }
-                          }
-                        }
-                      </li>
+                      <li><ng-container *ngTemplateOutlet="parts; context: { $implicit: item }" /></li>
                     }
                   </ul>
                 }

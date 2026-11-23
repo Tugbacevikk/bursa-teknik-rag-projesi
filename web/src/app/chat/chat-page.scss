@@ -123,11 +123,13 @@
 }
 
 .answer p,
-.answer ul {
+.answer ul,
+.answer ol.answer-list {
   margin: 0.5rem 0;
 }
 
-.answer ul {
+.answer ul,
+.answer ol.answer-list {
   padding-inline-start: 1.25rem;
 }
 

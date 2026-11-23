@@ -99,7 +99,9 @@ public sealed partial class ChatService(
                     yield return new AnswerTextAdded(delta.Text);
                     break;
 
-                case AnswerFinished finished:
+                // An answer with no text is not stored as answered: it falls through to the
+                // failure below and the student can ask again.
+                case AnswerFinished finished when !string.IsNullOrWhiteSpace(answer.ToString()):
                     var answerId = await SaveAsync(conversation, isNew, masked, askedAt, MessageOutcome.Answered, answer.ToString(), sources, finished.Model);
                     yield return new AnswerCompleted(answerId);
                     yield break;

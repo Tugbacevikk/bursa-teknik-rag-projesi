@@ -1,0 +1,40 @@
+# Monthly update pull requests, grouped per ecosystem so they arrive as a few PRs rather
+# than dozens. CI (workflows/ci.yml) runs the tests on each one before it is merged.
+# Security fixes are proposed as soon as they are published, whatever the schedule.
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directories: ["/backend", "/eval"]
+    schedule:
+      interval: monthly
+    groups:
+      nuget:
+        patterns: ["*"]
+
+  - package-ecosystem: pip
+    directory: /ai-service
+    schedule:
+      interval: monthly
+    groups:
+      pip:
+        patterns: ["*"]
+
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: monthly
+    groups:
+      angular:
+        patterns: ["@angular/*", "@angular-devkit/*"]
+      npm:
+        patterns: ["*"]
+
+  - package-ecosystem: docker
+    directories: ["/ai-service", "/backend", "/web"]
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

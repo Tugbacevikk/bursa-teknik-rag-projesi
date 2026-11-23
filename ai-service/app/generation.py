@@ -28,10 +28,19 @@ def generate_events(model: ChatModel, question: str, history: list[Turn], source
             yield {"type": "not_found", "model": model.name}
             return
 
+        # The model can end without writing anything (e.g. a safety filter or the output
+        # limit cut it off before the first token). "done" would store an empty answer as
+        # if it were one, so it is reported as an error instead.
+        wrote = bool(held.strip())
         if held:
             yield {"type": "delta", "text": held}
         for piece in pieces:
+            wrote = wrote or bool(piece.strip())
             yield {"type": "delta", "text": piece}
+
+        if not wrote:
+            yield {"type": "error", "message": "The chat model ended without writing an answer."}
+            return
 
         yield {"type": "done", "model": model.name}
     except ChatModelUnavailable as ex:
