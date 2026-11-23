@@ -1,7 +1,7 @@
 # The .NET API (PLANNING Faz 6, E5). Built in two stages: the SDK image compiles, and only
 # the published output goes into the much smaller runtime image.
 
-FROM mcr.microsoft.com/dotnet/sdk:11.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # The project files first, so the package restore layer is reused until they change.
