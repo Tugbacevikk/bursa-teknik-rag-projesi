@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +33,7 @@ const conversationKey = 'btu-asistan.conversation';
 // widget the school's site shows in an iframe (/widget, D4): the same chat, compact and
 // without the staff links.
 @Component({
-  imports: [AnswerFeedback, MatButtonModule, MatProgressSpinnerModule, RouterLink],
+  imports: [AnswerFeedback, MatButtonModule, MatProgressSpinnerModule, NgTemplateOutlet, RouterLink],
   host: { '[class.widget]': 'widget' },
   selector: 'app-chat-page',
   styleUrl: './chat-page.scss',

@@ -1,0 +1,69 @@
+# Runs the three test suites (README "Testler") on every push and pull request, so a change
+# that breaks the API, the AI service or the web app is seen before it is merged.
+# No real model is downloaded and Gemini is never called: the tests use fakes.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: API (.NET, xUnit + Testcontainers)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: backend/global.json
+      # The whole solution, the evaluation tool included, so it cannot fall behind the API.
+      - run: dotnet build BtuAsistan.slnx -c Release
+      # Testcontainers starts its own pgvector container; Docker is on the runner.
+      - run: dotnet test --project BtuAsistan.Api.Tests -c Release --no-build
+
+  ai-service:
+    name: AI servisi (pytest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-service
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # The models are faked in the tests and imported only when loaded, so torch and
+      # sentence-transformers (several GB) are not needed here. The versions are the
+      # ones pinned in requirements.txt.
+      - run: |
+          grep -E '^(fastapi|uvicorn|google-genai)==' requirements.txt > ci-requirements.txt
+          pip install -r ci-requirements.txt -r requirements-dev.txt
+      - run: python -m pytest
+
+  web:
+    name: Web (Angular, Vitest + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npx ng test --watch=false
+      - run: npx ng build
